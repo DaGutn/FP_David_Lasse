@@ -1,0 +1,8 @@
+#ignore hdf5 files
+*.hdf
+*.h5
+*.hdf5
+*.he5
+
+#ignore build/
+build
