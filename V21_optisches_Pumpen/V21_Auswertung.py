@@ -25,7 +25,7 @@ def g(m):
     return 4 * np.pi * const.m_e /(m * const.e)
 
 def kernspin(g_f, J):
-    return J * (2.0023/g_f - 1)
+    return J * (2/g_f - 1)
 
 def quad_zeemann(g_f, B, E_HFS, m_f):
     return g_f**2 * (const.e * const.h/(4 * np.pi* const.m_e))**2 * B**2 * (1 - 2 * m_f)/E_HFS 
@@ -43,9 +43,9 @@ U2_hor = unp.uarray(U2_hor, 0.02)
 U1_sweep = unp.uarray(U1_sweep, 0.01)
 U2_sweep = unp.uarray(U2_sweep, 0.01)
 
-print(U1_hor[1])
-print(noms(U1_hor)[1])
-print(stds(U1_hor)[1])
+#print(U1_hor[1])
+#print(noms(U1_hor)[1])
+#print(stds(U1_hor)[1])
 
 
 # In[4]:
@@ -100,6 +100,11 @@ errors1 = np.sqrt(np.diag(cov_1))
 params_2, cov_2 = curve_fit(linear, rf_freq, noms(B2_ges), sigma=stds(B2_ges))
 errors2 = np.sqrt(np.diag(cov_2))
 
+params_85 = unp.uarray(params_2, errors2)
+params_87 = unp.uarray(params_1, errors1)
+
+print(f"m, b von Rb-85: {params_85}")
+print(f"m, b von Rb-87: {params_87}")
 
 # Kernspin aus Steigung berechnen
 
@@ -107,21 +112,26 @@ errors2 = np.sqrt(np.diag(cov_2))
 
 
 x = np.linspace(0,1000000)
-plt.plot(x/1000, linear(x, *params_2)*1000000)
+plt.plot(x/1000, linear(x, *params_2)*1000000, label=r"${}^{85}$Rb")
 plt.errorbar(rf_freq/1000, noms(B2_ges)*1000000,yerr=stds(B2_ges)*1000000, fmt='rx')
+plt.plot(x/1000, linear(x, *params_1)*1000000, label=r"${}^{87}$Rb")
+plt.errorbar(rf_freq/1000, noms(B1_ges)*1000000,yerr=stds(B1_ges)*1000000, fmt='rx')
 plt.ylabel("B-Feld in $\mu$T")
 plt.xlabel("RF-Freq in kHz")
+plt.legend(loc="best")
+plt.savefig("Rb_85_87.pdf")
 
 
 # In[9]:
 
 
-x = np.linspace(0,1000000)
-plt.plot(x/1000, linear(x, *params_1)*1000000)
-plt.errorbar(rf_freq/1000, noms(B1_ges)*1000000,yerr=stds(B1_ges)*1000000, fmt='rx')
-plt.ylabel("B-Feld in $\mu$T")
-plt.xlabel("RF-Freq in kHz")
-
+#x = np.linspace(0,1000000)
+#plt.plot(x/1000, linear(x, *params_1)*1000000, label=r"${}^{87}$Rb")
+#plt.errorbar(rf_freq/1000, noms(B1_ges)*1000000,yerr=stds(B1_ges)*1000000, fmt='rx')
+#plt.ylabel("B-Feld in $\mu$T")
+#plt.xlabel("RF-Freq in kHz")
+#plt.legend(loc="best")
+#plt.savefig("Rb_87.pdf")
 
 # g-Faktoren berechnen
 
@@ -130,7 +140,9 @@ plt.xlabel("RF-Freq in kHz")
 
 g_f1 = g(unp.uarray(params_1[0], errors1[0]))
 g_f2 = g(unp.uarray(params_2[0],errors2[0]))
-print(g_f1, g_f2)
+print(f"Rb-85: g_f={g_f2}")
+print(f"Rb-87: g_f={g_f1}")
+
 
 
 # In[11]:
@@ -142,8 +154,8 @@ I_2 = kernspin(g_f2, 1/2)
 
 # In[12]:
 
-
-print(I_1, I_2)
+print(f"Rb-85: I={I_2}")
+print(f"Rb-87: I={I_1}")
 
 
 # Erdmagnetfeld in vertikaler und horizontaler Richtung bestimmen
