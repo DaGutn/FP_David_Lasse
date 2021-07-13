@@ -1,0 +1,6 @@
+Start: 100Hz
+Ende: 12000Hz
+5 Hz Schritte
+50ms pro Schitt
+5cm Zylinder
+1,6cm Blende

@@ -1,201 +1,132 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
-from uncertainties.umath import *
-from uncertainties import unumpy
 from uncertainties.unumpy import (nominal_values as noms, std_devs as stds)
 from scipy.optimize import curve_fit
-import scipy.constants as const
-
-def f(x, a, b):
-    return a*x + b
-
-def g(x, a, b, c, d):
-    return np.log(noms(a) * np.exp(-noms(b)*x) + noms(c) * np.exp(-noms(d)*x))
-
-###########################################################################################################
-### Mittelwert der Untergrundzählrate mit Integrationszeit/Messzeit von 300s berechnen
-N_U_a = np.array([129, 143, 144, 136, 139, 126, 158])
-N_U = ufloat(np.mean(N_U_a), np.std(N_U_a))
-N_U_30 = ufloat(np.mean(N_U_a), np.std(N_U_a)) / 10
-N_U_15 = ufloat(np.mean(N_U_a), np.std(N_U_a)) / 20
-print("Die Untergrundzaehllrate über den Integrationszeitraum 300s, 30s:")
-print("{:.3f}".format(N_U))
-print("{:.3f}".format(N_U_30))
-print("{:.3f}".format(N_U_15))
 
 
 ###########################################################################################################
-### Messwerte von Vanadium plotten, fitten und auswerten
+### Counts pro 10s gegen Differenz zwischen Verzörgerungsleitungen plotten, fitten
 
-# Untergrund von den Messwerten abziehen und Messunsicherheit berechnen
-t, N_alt = np.genfromtxt("data/Vanadium.dat", delimiter = "", unpack = True)
-t_besser = t[0:13]
-N = unumpy.uarray(N_alt - noms(N_U_30), np.sqrt(N_alt - noms(N_U_30)))
-np.savetxt('data/test.txt', np.column_stack([np.round(noms(N), 2), np.round(stds(N), 2)]), fmt='%10.2f')
+#Zu fittende Funktion
+def gauss(x, a, x_0, sig):
+    return a * np.exp(-(x-x_0)**2 / (2*sig**2))
 
-# Halblogarithmischen Graphen der korregierten Zählrate N gegen die Zeit t plotten
-Z = unumpy.log(N)
-Z_besser = Z[0:13]
-plt.errorbar(t, noms(Z), xerr = 0, yerr = stds(Z), fmt = "b.", label = r"Messwerte")
+#Daten einlesen
+df_1 = pd.read_csv('data/Verzoergerung_data.csv', delimiter='\t')
+x = df_1['Zeitdifferenz'].to_numpy()
+y = unp.uarray(df_1['Counts'], np.sqrt(df_1['Counts']))
 
-# Ausgleichgerade durch alle und durch die ersten 14 Messwerte legen
-params, cov_matrix = curve_fit(f, t, noms(Z))
-m = ufloat(params[0], np.sqrt(cov_matrix[0, 0]))
-b = ufloat(params[1], np.sqrt(cov_matrix[1, 1]))
+#Fitten
+params_1, cov_1 = curve_fit(gauss, x, noms(y), sigma=stds(y))
+errors_1 = np.sqrt(np.diag(cov_1))
 
-params_besser, cov_matrix_besser = curve_fit(f, t_besser, noms(Z_besser))
-m_besser = ufloat(params_besser[0], np.sqrt(cov_matrix_besser[0, 0]))
-b_besser = ufloat(params_besser[1], np.sqrt(cov_matrix_besser[1, 1]))
+#Plotten
+fig, ax = plt.subplots()
 
-t_lin = np.linspace(t[0], t[-1])
-t_lin_besser = np.linspace(30, 440)
+x_lin = np.linspace(x[0], x[-1], 100)
+ax.plot(x, noms(y), 'b.', label='Messwerte')
+ax.errorbar(x, noms(y), yerr=stds(y), fmt='none', ecolor='gray', alpha=0.9, capsize=2.5, elinewidth=1.5)
+ax.plot(x_lin, gauss(x_lin, *params_1), 'orange', label='Fit')
+ax.set_xlabel(r'$\Delta t$')
+ax.set_ylabel(r'Counts pro 10s')
+ax.legend(markerscale=2)
 
-plt.plot(t_lin, f(t_lin, *params), "r", label = r"1. Ausgleichsgerade")
-plt.plot(t_lin_besser, f(t_lin_besser, *params_besser), "g", label = r"2. Ausgleichsgerade")
-
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Vanadium.png")
-#plt.show()
+plt.savefig('plots/Verzoergerung.pdf')
 plt.clf()
 
-# Die Zerfallskonstante und Halbwertszeit berechnen
-lam = np.abs(m)
-lam_besser = np.abs(m_besser)
-T = np.log(2) / lam
-T_besser = np.log(2) / lam_besser
-N_0_Faktor = exp(b)
-N_0_Faktor_besser = exp(b_besser)
+#Parameter
+parameter_1 = unp.uarray(params_1, errors_1)
+for name, param in zip(('a','x_0', 'sig'), parameter_1):
+    print(r'{0}:  {1:.8f}'.format(name, param))
+print('\n')
 
-# Ergebnisse ausdrucken aus der anfänglichen und verbesserten Rechnung für den Zerfall von Vanadium
-print()
-print("Parameter der 1. lin. Reg. zum halblogarithmischen Graphen:")
-print("{:.6f}".format(m))
-print("{:.2f}".format(b))
+###########################################################################################################
+### Propfaktor zwischen zeitlicher Pulsabstand und Spannungsamplitude bestimmen
 
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für 1. lin. Reg.:")
-print("{:.6f}".format(lam))
-print("{:.2f}".format(T))
-print("{:.5f}".format((224.6 - T) / 224.6))
-print("exp(y-Achsenabschnitt) / Vorfaktor für 1. lin. Reg.:")
-print("{:.2f}".format(N_0_Faktor))
+#Zu fittende Funktion
+def lin(x, a):
+    return a * x
 
-print()
-print("Parameter der 2. verbesserten lin. Reg. zum halblogarithmischen Graphen:")
-print("{:.6f}".format(m_besser))
-print("{:.2f}".format(b_besser))
+#Daten einlesen
+df_2 = pd.read_csv('data/Marker_Faktor_data.csv', delimiter=';')
+x = df_2['Marker']
+y = df_2['Pulsabstand']
 
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für 2. verbesserte lin. Reg.:")
-print("{:.6f}".format(lam_besser))
-print("{:.2f}".format(T_besser))
-print("{:.5f}".format((224.6 - T_besser) / 224.6))
-print("exp(y-Achsenabschnitt) / Vorfaktor für 2. verbesserte lin. Reg.:")
-print("{:.2f}".format(N_0_Faktor_besser))
+#Fitten
+params_2, cov_2 = curve_fit(lin, x, y)
+errors_2 = np.sqrt(np.diag(cov_2))
+
+#Plotten
+fig, ax = plt.subplots()
+
+ax.scatter(x, y, s=25, c='blue', marker='x', label='Messwerte')
+ax.plot(x, lin(x, *params_2), 'orange', alpha=0.9, label='Ausgleichsgerade')
+ax.set_xlabel(r'Marker')
+ax.set_ylabel(r'$\Delta t_{\mathrm{Puls} \; [\mu s]}$')
+
+#Legende (Labels in umgekehrter Reihenfolge)
+handles, labels = ax.get_legend_handles_labels()
+handles, labels = handles[::-1], labels[::-1]
+# Folgendes sortiert nach Länge des Labels (kürzestes zuerst)
+#handles, labels = zip(*sorted(zip(handles, labels), key=lambda t: t[1], reverse=True))
+ax.legend(handles, labels, markerscale=1.5, scatteryoffsets=[0.5])
+
+plt.savefig('plots/Marker_Faktor.pdf')
+plt.clf()
+
+#Parameter
+parameter_2 = unp.uarray(params_2, errors_2)
+for name, param in zip(('m','b'), parameter_2):
+    print(r'{0}: {1:.8f}'.format(name, param))
+print('\n')
 
 
 ###########################################################################################################
-### Messwerte von Rhodium plotten, fitten und auswerten
+### Counts gegen Lebenszeiten plotten, fitten und auswerten
 
-# Untergrund von den Messwerten abziehen und Messunsicherheit berechnen
-t_Rhodium, N_alt_Rhodium = np.genfromtxt("data/Rhodium.dat", delimiter = "", unpack = True)
-t_lang = t_Rhodium[26:44]
-N_Rhodium = unumpy.uarray(N_alt_Rhodium - noms(N_U_15), np.sqrt(N_alt_Rhodium - noms(N_U_15)))
-np.savetxt('data/test_lang.txt', np.column_stack([t_Rhodium, np.round(np.log(noms(N_Rhodium)), 4), np.round(stds(unumpy.log(N_Rhodium)), 4)]), fmt='%10.4f')
+#Zu fittende Funktion
+def efkt(x, a, lam, b):
+    return a * np.exp(-lam*x) + b
 
-Z_Rhodium = unumpy.log(N_Rhodium)
-Z_lang = Z_Rhodium[26:44]
+#Daten einlesen und x-Werte umformen
+df_3 = pd.read_csv('data/Lebenszeit_data.csv', names=['counts'])
 
-# Halblogarithmischen Graphen der korregierten Zählrate N_Rhodium gegen die Zeit t_Rhodium plotten
-plt.errorbar(t_Rhodium, noms(Z_Rhodium), xerr = 0, yerr = stds(Z_Rhodium), fmt = "b.", label = r"Messwerte")
+kanal = np.linspace(0, 511, 512)
+t = kanal * parameter_2
+counts = df_3['counts'].to_numpy(dtype=np.float128)
 
-# Ausgleichgerade durch die letzten 18 Messwerte fitten
-params_lang, cov_matrix_lang = curve_fit(f, t_lang, noms(Z_lang))
-m_lang = ufloat(params_lang[0], np.sqrt(cov_matrix_lang[0, 0]))
-b_lang = ufloat(params_lang[1], np.sqrt(cov_matrix_lang[1, 1]))
+#Fitten
+x_min = 3
+x_max = 228
+counts_rel = counts[x_min:x_max]
+t_rel = t[x_min:x_max]
 
-# Die Zerfallskonstante und Halbwertszeit für den langlebigen Zerfall berechnen
-lam_lang = np.abs(m_lang)
-T_lang = np.log(2) / lam_lang
-N_0_Faktor_lang = exp(b_lang)
+params_3, cov_3 = curve_fit(efkt, noms(t_rel), counts_rel)
+errors_3 = np.sqrt(np.diag(cov_3))
 
-# Untergrund und Zählrate des langlebigen Zerfalls von den Messwerten abziehen
-t_kurz = t_Rhodium[0:14]
-N_Rhodium_korr = noms(N_Rhodium) - noms(N_0_Faktor_lang) * np.exp(-noms(lam_lang)*noms(t_Rhodium))
-np.savetxt('data/test_kurz.txt', np.column_stack([t_Rhodium, np.round(np.log(np.abs(N_Rhodium_korr)), 4)]), fmt='%10.4f')
+#Plotten
+fig, ax = plt.subplots()
 
-Z_kurz = np.log(N_Rhodium_korr[0:14])
+#y = np.concatenate((np.ones(x_min), np.zeros(x_max-x_min), np.ones(len(counts)-x_max)))
+ax.scatter(noms(t), counts, s=20, c='limegreen', marker='.', label='Messwerte, ungefittet')
+ax.scatter(noms(t_rel), counts_rel, s=20, c='blue', marker='.', label='Messwerte')
+ax.plot(noms(t), efkt(noms(t), *params_3), 'orange', linewidth=2, label='Fit')
+ax.set_xlabel(r'$\Delta t \; [\mu s]$')
+ax.set_ylabel(r'Counts')
+ax.legend()
 
-# Ausgleichgerade durch die ersten 14 Messwerte fitten
-params_kurz, cov_matrix_kurz = curve_fit(f, t_kurz, Z_kurz)
-m_kurz = ufloat(params_kurz[0], np.sqrt(cov_matrix_kurz[0, 0]))
-b_kurz = ufloat(params_kurz[1], np.sqrt(cov_matrix_kurz[1, 1]))
+#Legende (Labels in umgekehrter Reihenfolge)
+handles, labels = ax.get_legend_handles_labels()
+handles, labels = handles[::-1], labels[::-1]
+ax.legend(handles, labels, markerscale=3, scatteryoffsets=[0.5])
 
-# Die Zerfallskonstante und Halbwertszeit für den kurzlebigen Zerfall berechnen
-lam_kurz = np.abs(m_kurz)
-T_kurz = np.log(2) / lam_kurz
-N_0_Faktor_kurz = exp(b_kurz)
-
-# Ausgleichsgeraden in den Graphen einzeichnen
-t_lin_Rhodium = np.linspace(0, 660)
-
-plt.plot(t_lin_Rhodium, f(t_lin_Rhodium, *params_lang), "r", label = r"Langer Zerfall Ausgleichsgerade")
-plt.plot(t_lin_Rhodium, f(t_lin_Rhodium, *params_kurz), "g", label = r"Kurzer Zerfall Ausgleichsgerade")
-
-plt.plot(t_lin_Rhodium, g(t_lin_Rhodium, N_0_Faktor_lang, lam_lang, N_0_Faktor_kurz, lam_kurz), "k", label = r"Errechnete Kurve")
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.ylim(0)
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Rhodium.png")
-#plt.show()
+plt.savefig('plots/Lebenszeit.pdf')
 plt.clf()
 
-
-# Messwerte nach Subtraktion von langlebigem Zerfall plotten und die Ausgleichsgerade des kurzlebigen Zerfalls aufzeichnen
-t_lin_Rhodium_kurz = np.linspace(0, 230)
-
-plt.plot(t_kurz, noms(Z_kurz), "b.", label = r"Messwerte")
-plt.plot(t_lin_Rhodium_kurz, f(t_lin_Rhodium_kurz, *params_kurz), "g", label = r"Kurzer Zerfall Ausgleichsgerade")
-
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Rhodium_kurzlebig.png")
-#plt.show()
-plt.clf()
-
-
-# Ergebnisse ausdrucken für den langlebigen und kurzlebigen Zerfall von Rhodium
-print()
-print("Parameter der lin. Reg. zum halblogarithmischen Graphen zum langlebigen Zerfall:")
-print("{:.6f}".format(m_lang))
-print("{:.2f}".format(b_lang))
-
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für lin. Reg. des langlebigen Zerfalls:")
-print("{:.6f}".format(lam_lang))
-print("{:.1f}".format(T_lang))
-print("{:.3f}".format((260.4 - T_lang) / 260.4))
-print("exp(y-Achsenabschnitt) / Vorfaktor für lin. Reg. des langlebigen Zerfalls:")
-print("{:.2f}".format(N_0_Faktor_lang))
-
-print()
-print("Parameter der lin. Reg. zum halblogarithmischen Graphen zum kurzlebigen Zerfall:")
-print("{:.6f}".format(m_kurz))
-print("{:.2f}".format(b_kurz))
-
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für lin. Reg. des kurzlebigen Zerfalls:")
-print("{:.6f}".format(lam_kurz))
-print("{:.1f}".format(T_kurz))
-print("{:.3f}".format((42.3 - T_kurz) / 42.3))
-print("exp(y-Achsenabschnitt) / Vorfaktor für lin. Reg. des kurzlebigen Zerfalls:")
-print("{:.2f}".format(N_0_Faktor_kurz))
-
-
-
+#Parameter
+parameter_3 = unp.uarray(params_3, errors_3)
+for name, param in zip(('a','lam', 'b'), parameter_3):
+    print(r'{0}:  {1:.8f}'.format(name, param))

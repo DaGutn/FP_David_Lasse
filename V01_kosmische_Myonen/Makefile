@@ -10,12 +10,13 @@ TexOptions = -pvc \
 
 .PRECIOUS: build/Abgabe.pdf
 
-build/Abgabe.pdf: pictures/Aufbau.png \
-				  #pictures/HalbwertzeitGraph_Rhodium_kurzlebig.png \#
-				  pictures/HalbwertzeitGraph_Rhodium.png \
-				  pictures/HalbwertzeitGraph_Vanadium.png \
-				  pictures/HalbwertzeitGraph.png \
-				  pictures/RhSchema.png
+#python
+plots/Verzoergerung.pdf plots/Marker_Faktor.pdf plots/Lebenszeit.pdf: programm.py | build
+	TEXINPUTS=$$(pwd): python programm.py
+
+build/Abgabe.pdf: plots/Verzoergerung.pdf \
+				  plots/Marker_Faktor.pdf \
+				  plots/Lebenszeit.pdf
 
 build/Abgabe.pdf: FORCE | build
 	latexmk $(TexOptions) Abgabe.tex
