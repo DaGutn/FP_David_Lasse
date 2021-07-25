@@ -28,7 +28,7 @@
             \label{eqn:dW}
         \end{equation}
 
-        Die Anzahl an Teilchen die in diesem Zeitraum zerfallen ergibt sich durch Multiplikation von \ref{eqn:dW} mit der aktuellen Teilchenzahl N
+        Die Anzahl an Teilchen die in diesem Zeitraum zerfallen ergibt sich durch Multiplikation von \eqref{eqn:dW} mit der aktuellen Teilchenzahl N
 
         \begin{equation*}
             \text{-NdW} = -\lambda \text{Ndt}
@@ -36,30 +36,30 @@
 
         Integrieren und Umstellen dieser Gleichung ergibt das bekannte Zerfallsgesetz
         
-        \begin{equation*}
+        \begin{equation}
             \text{N(t)} = \text{N}_0 \cdot e^{- \lambda \cdot \text{t}}
             \label{eqn:Zerfallsgesetz}
-        \end{equation*}
+        \end{equation}
 
         mit der Zerfallskonstante $\lambda$ und den zum Startzeitpunkt vorhanden Teilchen $\text{N}_0$. Die mittlere Lebensdauer lässt sich bestimmen, indem der Erwatungswert der Zeit t aus der zu 
-        \ref{eqn:Zerfallsgesetz} gehörenden Wahrscheinlichkeitsdichtefunktion berechnet wird.
+        \eqref{eqn:Zerfallsgesetz} gehörenden Wahrscheinlichkeitsdichtefunktion berechnet wird.
 
-        \begin{equation*}
+        \begin{equation}
             \tau = \int_0^{\infty} \text{t} \lambda \cdot e^{-\lambda \text{t}} \text{dt} = \frac{1}{\lambda}
             \label{eqn:mittlere_Lebensdauer}
-        \end{equation*}
+        \end{equation}
 
         Somit ergibt sich die mittlere Lebensdauer als Inverses der Zerfallskonstante $\lambda$.
 
     \subsection{Detektion von Myonen}
         Zur Detektion von Myonen können Szintillatoren genutzt werden. Der Konzept der Szintillation beruht darauf, dass einfallende Strahlung Atome des Szintillationsmediums entweder ionisiert oder anregt und 
-        diese beim Relaxieren Ühotonen freisetzen, die detektiert werden. Grundlegend wird zwischen organischen und anorganischen Szintillatoren unterschieden.
+        diese beim Relaxieren Photonen freisetzen, die detektiert werden. Grundlegend wird zwischen organischen und anorganischen Szintillatoren unterschieden.
 
             \subsubsection*{Anorganische Szintillatorn}
                 Anorganische Szintillationsmedien sind nicht leitende Festkörper, sodass die Eigenschaften der Szintillation von der Gitter- und Bandstruktur des Festkörpers abhängig sind. Da die 
                 Szintillationsmedien nicht leiten, liegt eine Energielücke von 4 bis 12 eV zwischen dem Leitungs- und Valenzbands, in der auch die Fermi-Energie liegt. Aufgrund der moderaten Energielücke 
                 handelt es sich um Halbleiter, die jedoch noch um ein Lumineszenzzentrum erweitert werden müssen. Diese Zentren sind Bereiche, in denen der Abstand zwischen möglichen Energiezuständen geringer 
-                ist als zwischen dem Valenz- und Leitungsband und können entweder durch äußere Dotierung hervorgerufen werden oder soind durch intrinsische Defekte des Mediums bereits vorhanden.
+                ist als zwischen dem Valenz- und Leitungsband und können entweder durch äußere Dotierung hervorgerufen werden oder sind durch intrinsische Defekte des Mediums bereits vorhanden.
                 
                 \FloatBarrier
 
@@ -89,15 +89,15 @@
                 \end{equation*}
 
                 In der Molekülverbindung können die s- und p-Orbitale nun unterschiedlich miteinander Hybridisieren. Zu lumineszenten Übergängen kommt es, wenn nur 2 der 3 2p-Orbitale hybridisieren. In diesem
-                Fall bleibt ein 2p-Orbital unverändert, das nun die sogenannten $\pi-\text{Elektronen}$ enthält. Die Übergänge dieser $\pi-\text{Elektronen}$ Energieniveaus für die Fluoreszenz verantwortlich.
+                Fall bleibt ein 2p-Orbital unverändert, das nun die sogenannten $\pi-\text{Elektronen}$ enthält. Die Übergänge dieser $\pi-\text{Elektronen}$ Energieniveaus sind für die Fluoreszenz verantwortlich.
                 Da die Elektronen vor dem Zurückfallen auf den Ausgangszustand bereits kleine Übergänge durchlaufen, ist auch hier die Energie der Fluoreszenzelektronen unterschiedlich zu der der anregenden
                 Photonen, sodass Erneutanregungen durch Fluoreszenzelektronen vermieden werden. Der Vorteil organischer Szintillationsmedien ist, dass sie auch besonders schnelle Signale zuverlässig 
                 detektieren können.
 
             \subsubsection*{Photoverfielfacher}
-                Zur Detektion der Szintillationsphotonen werden Photoverfielfacher genutzt. Sie bestehen aus einer großen Einfalsskathode, aus der einfallende Photonen Photoelektronen auslösen.Diese
+                Zur Detektion der Szintillationsphotonen werden Photoverfielfacher genutzt. Sie bestehen aus einer großen Einfalsskathode, aus der einfallende Photonen Photoelektronen auslösen. Diese
                 Photoelektronen werden daraufhin durch eine hohe Spannung auf mehrere Dyoden beschleunigt. Bei jedem Auftreffen auf eine Dynode werden zusätzliche Elektronen ausgelöst und es bildet sich 
-                folglich eine Lawine an Sekundärelektronen. So kann das Primärelektron um einen Fakto von circa $10^6$ verstärkt und so messbar gemacht werden. Neben der Möglichlkeit bereits ein einzelnes 
+                folglich eine Lawine an Sekundärelektronen. So kann das Primärelektron um einen Faktor von circa $10^6$ verstärkt und so messbar gemacht werden. Neben der Möglichlkeit bereits ein einzelnes 
                 Photon zu detektieren, besitzen Photoverfielfacher auch eine gute Zeitauflösung im  Bereich unter \SI{200}{\pico\second} und eigenen sich daher auch für schnelle Zerfallsprozesse.
 
                 \FloatBarrier

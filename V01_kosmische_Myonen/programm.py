@@ -130,3 +130,5 @@ plt.clf()
 parameter_3 = unp.uarray(params_3, errors_3)
 for name, param in zip(('a','lam', 'b'), parameter_3):
     print(r'{0}:  {1:.8f}'.format(name, param))
+
+print(np.sum(counts))
