@@ -21,7 +21,7 @@
         \end{equation*}
 
     \subsection{Justierung der Verzörgerungsleitungen}
-        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. Da die beiden Signale nie genau im selben Zeitpunkt ankommen können, hat die Koinzidenz ein kleines Toleranzintervall, weshalb ein Plateau zu sehen sein müsste, wenn die Counts gegen Zeitdifferenz auftragen werden.
+        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. Da die beiden Signale nie genau im selben Zeitpunkt ankommen können, hat die Koinzidenz ein kleines Toleranzintervall (die Auflösungszeit), weshalb ein Plateau zu sehen sein müsste, wenn die Counts gegen die Zeitdifferenz auftragen werden.
         
         \begin{figure}[h]
             \centering
@@ -63,7 +63,7 @@
         \end{equation*}
         mit der Steigung:
         \begin{equation*}
-            m = (0,045348 \pm 0,000024) \, \text{ns}
+            m = (0,045348 \pm 0,000024) \, \mu\text{s}
         \end{equation*}
 
     \subsection{Bestimmung der Lebenszeit}
@@ -82,10 +82,19 @@
         \end{equation*}
         wobei $u$ der Untergrund während Messung ist. Als Parameter ergeben sich:
         \begin{align*}
-            \lambda &= (0,4873 \pm 0,0067) \, \text{ns}^{-1} \\
-            u &= 7,1 \pm 1,4
+            \lambda &= (0,4873 \pm 0,0067) \, \mu\text{s}^{-1} \\
+            u &= 7,09 \pm 1,39
         \end{align*}
+        Der zuvor berechnete Untergrund von $u_{\text{theo}} \approx 5,81$ ist in der Messunsicherheit enthalten.
 
+        Mit $\lambda$ ergibt sich eine mittlere Myonenlebensdauer von
+        \begin{equation*}
+            \tau_{\mu} = \frac{1}{\lambda} = (2,052 \pm 0,028) \, \mu\text{s}
+        \end{equation*}
+        mit einer relativen Messabweichung vom Theoriewert $\tau_{\text{theo}} \approx 2,197 \, \mu$s von:
+        \begin{equation*}
+            a_{\tau} = \frac{\tau_{\mu} - \tau_{\text{theo}}}{\tau_{\text{theo}}} \approx 6,6 \%
+        \end{equation*}
 
 
 
