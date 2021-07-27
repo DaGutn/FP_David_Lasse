@@ -131,4 +131,9 @@ parameter_3 = unp.uarray(params_3, errors_3)
 for name, param in zip(('a','lam', 'b'), parameter_3):
     print(r'{0}:  {1:.8f}'.format(name, param))
 
-print(np.sum(counts))
+# Lebensdauer berechnen
+tau = 1 / parameter_3[1]
+print(r'Lebensdauer: ', tau)
+tau_theo = 2.196981
+a_tau = (tau_theo - noms(tau)) / tau_theo
+print(r'Abweichung Lebensdauer: ', a_tau)
