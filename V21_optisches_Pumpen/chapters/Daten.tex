@@ -2,71 +2,23 @@
 \section{Daten}
     \begin{table}[h]
         \centering
-        \caption{Hier sind die Messwerte der Zählrate des Zerfalls von Vanadium mit einem Integrationszeitraum von 30s angegeben.}
-        \label{tab:Vanadium}
-        \begin{tabular}{c c c c}
+        \caption{In dieser Tabelle sind die Spannungen der horizontalen Helmholtzspule und die der Sweep-Spule für alle RF-Frequenzen und beide Rubidium-Isotope aufgelistet. Auch die gesamte horizontalen Magnetfeldstärke, die sich aus den Spannungen berechnet, ist für alle RF-Frequenzen aufgetragen.}
+        \label{tab:daten}
+        \begin{tabular}{c c c c c c}
         \toprule
-        {$t$ [s]} & {$N$ [Impulse/30s]} & {$t$ [s]} & {$N$ [Impulse/30s]} \\
+        {RF-Freq. [$\si{\kilo\hertz}]$} & {$\text{U}_{{}^{87, \, 85}\text{Rb}, \, \text{hor}}$ [V]} & {$\text{U}_{{}^{87}\text{Rb},\, \text{sweep}}$ [V]} & {$\text{U}_{{}^{85}\text{Rb},\, \text{hor}}$ [V]} & {$\text{B}_{{}^{87}\text{Rb}, \, \text{hor}}$ [\si{\micro\tesla}]}& {$\text{B}_{{}^{85}\text{Rb}, \, \text{hor}}$ [\si{\micro\tesla}]} \\
         \midrule
-        30	 &  189  &  690   &  35 \\
-        60	 &  197  &  720   &  19 \\
-        90	 &  150  &  750   &  28 \\
-        120	 &  159  &  780   &  27 \\
-        150	 &  155  &  810   &  36 \\
-        180	 &  132  &  840   &  25 \\
-        210	 &  117  &  870   &  29 \\
-        240	 &  107  &  900   &  18 \\
-        270	 &  94   &  930   &  17 \\
-        300	 &  100  &  960   &  24 \\
-        330	 &  79   &  990   &  21 \\
-        360	 &  69   &  1020  &  25 \\
-        390	 &  81   &  1050  &  21 \\
-        420	 &  46   &  1080  &  24 \\
-        450	 &  49   &  1110  &  25 \\
-        480	 &  61   &  1140  &  17 \\
-        510	 &  56   &  1170  &  20 \\
-        540	 &  40   &  1200  &  19 \\
-        570	 &  45   &  1230  &  20 \\
-        600	 &  32   &  1260  &  18 \\
-        630	 &  27   &  1290  &  16 \\
-        660	 &  43   &  1320  &  17 \\                        
+        100	 &  \num{13.84(2)}  &  \num{6.33(1)}   &  \num{7.50(1)}  & \num{48.72(526)}  & \num{55.78(526)} \\
+        200	 &  \num{13.94(2)}  &  \num{4.38(1)}   &  \num{6.77(1)}  & \num{63.26(526)}  & \num{77.69(526)} \\
+        300	 &  \num{13.94(2)}  &  \num{6.77(1)}   &  \num{10.27(1)} & \num{77.69(526)}  & \num{98.81(526)} \\
+        400	 &  \num{14.04(2)}  &  \num{4.53(1)}   &  \num{9.25(1)}  & \num{90.48(526)}  & \num{118.96(526)} \\
+        500	 &  \num{14.14(2)}  &  \num{2.45(1)}   &  \num{8.40(1)}  & \num{104.23(526)} & \num{140.14(526)} \\
+        600	 &  \num{14.18(2)}  &  \num{2.87(1)}   &  \num{9.95(1)}  & \num{117.29(526)} & \num{160.02(526)} \\
+        700	 &  \num{14.26(2)}  &  \num{1.89(1)}   &  \num{10.15(1)} & \num{132.43(526)} & \num{182.27(526)} \\
+        800	 &  \num{14.30(2)}  &  \num{2.47(1)}   &  \num{10.25(1)} & \num{146.45(526)} & \num{203.92(526)} \\
+        900	 &  \num{14.34(2)}  &  \num{3.18(1)}   &  \num{9.34(1)}  & \num{161.26(526)} & \num{224.74(526)} \\
+        1000 &  \num{14.40(2)}  &  \num{2.62(1)}   &  \num{8.51(1)}  & \num{173.67(526)} & \num{246.04(526)} \\                  
         \bottomrule
-        \end{tabular}
-    \end{table}
-
-    \FloatBarrier
-
-    \begin{table}[h]
-        \centering
-        \caption{Hier sind die Messwerte der Zählrate des Zerfalls von Rhodium mit einem Integrationszeitraum von 15s angegeben.}
-        \label{tab:Rhodium}
-        \begin{tabular}{c c c c}
-        \toprule
-        {$t$ [s]} & {$N$ [Impulse/15s]} & {$t$ [s]} & {$N$ [Impulse/15s]} \\
-        \midrule
-            15    &   667   &   345   &   36 \\ 
-            30    &   585   &   360   &   38 \\ 
-            45    &   474   &   375   &   34 \\
-            60    &   399   &   390   &   40 \\
-            75    &   304   &   405   &   21 \\
-            90    &   253   &   420   &   35 \\
-            105   &   213   &   435   &   33 \\
-            120   &   173   &   450   &   36 \\
-            135   &   152   &   465   &   20 \\
-            150   &   126   &   480   &   24 \\
-            165   &   111   &   495   &   30 \\
-            180   &    92   &   510   &   30 \\
-            195   &    79   &   525   &   26 \\
-            210   &    74   &   540   &   28 \\
-            225   &    60   &   555   &   23 \\
-            240   &    52   &   570   &   20 \\
-            255   &    56   &   585   &   28 \\
-            270   &    53   &   600   &   17 \\
-            285   &    41   &   615   &   26 \\
-            300   &    36   &   630   &   19 \\
-            315   &    37   &   645   &   13 \\
-            330   &    32   &   660   &   17 \\
-            \bottomrule
         \end{tabular}
     \end{table}
 
