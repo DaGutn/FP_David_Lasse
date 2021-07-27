@@ -28,7 +28,7 @@ def stanni(Zahlen, Mittelwert):
         i = i + 1
     return np.sqrt(s/(n*(n-1)))
 
-def linear(m, b, x):
+def linear(x, m, b):
     return m*x+b
 
 def kontrast(U_max, U_min):
@@ -163,14 +163,27 @@ print("Brechungsindex von Luft bei Normalbedingungen")
 print(n_norm)
 
 
-# In[ ]:
+##################################################################################################################################################################
+
+#Brechungsindex bestimmen, indem n² gegen p aufgetragen wird
 
 
+n_quad_params, n_cov = scipy.optimize.curve_fit(linear, druck, noms(n_gs)**2)
+errors = np.sqrt(np.diag(n_cov))
+print(errors)
+n_quad_params_unc = unp.uarray(n_quad_params, errors)
+print("Steigung des linearen Zusammenhangs n² gegen p")
+print(n_quad_params_unc[0])
 
 
+plt.plot(druck, noms(n_gs)**2, "x")
+plt.xlabel("Druck [bar]")
+plt.ylabel("n²")
+plt.plot(x, linear(x, *n_quad_params))
 
-# In[ ]:
 
-
+n_norm = unp.sqrt(1+ 1.013*295.05*n_quad_params_unc[0]/288.15)
+print("Brechungsindex von Luft bei Normalbedingungen")
+print(n_norm)
 
 
