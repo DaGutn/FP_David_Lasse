@@ -1,24 +1,23 @@
 \newpage
 \section{Durchführung}
     \subsection{Versuchsaufbau}
-
-        \FloatBarrier
-
         \begin{figure}[h]
           \centering
           \includegraphics[width = 0.6\textwidth]{pictures/Aufbau.png}
-          \caption{In der Abbildung ist eine schematische Darstellung der Zerfallskurve zweier Isotope, deren Halbwertszeiten stark verschieden sind. Die Anzahl der zerfallenden Kerne ist dabei logarithmisch gegen die Zeit aufgetragen. Die Zerfallskurve eines einzelnen Isotops würde linear verlaufen und das tun auch die linearen Regressionen der einzelnen Isotope (gestrichelt)  [1]}
+          \caption{Hier ist der Aufbau der Versuchsschaltung dargestellt.}
           \label{fig:Aufbau}
         \end{figure}
 
         \FloatBarrier
 
-        \noindent
-        Wie im schematischen Aufbau zu erkennen, ist die Probe in einen Bleimantel gehüllt, um den Einfluss äußerer Strahlung auf die Messung zu verringern. Bei jedem zerfallenden Kern wird ein
-        $\beta^-$-Teilchen freigesetzt, das auf dem Geiger-Müller-Zählrohr einen elektrischen Impuls erzeugt, der verstärkt und dann gemessenen wird. Ein Zeitschalter wechselt nach verstreichen
-        des vorgewählten Zeitintervalls $\Delta t$ auf einen anderen Zähler, sodass ohne Unterbrechng zur Notierung der Daten weitergemessen werden kann.
+        An den Szintillator sind zwei Photomultiplier (PMT) angeschlossen, um mögliche Störungen, die an nur einem PMT in die Messung einfließen können mithilfe der Koinzidenz auszuschließen.
+        Damit die Signale möglichst zeitgleich an der Koinzidenz ankommen werden hinter die PMTs Verzörgerungsleitungen, die aus Kabelspulen bestehen, dazugeschaltet.
+        Die Diskriminatoren filtern je nach eingestellter Schwelle Signale.
+        Wie schon erwähnt lässt die Koinzidenz nur ein Signal durch, wenn alle Input-Signale in einer bestimmten Auflösungszeit ankommen.
 
-    \subsection{Untergrundbestimmung}
+        Anschließend ist eine, durch eine elektronische Schaltung realisierte, Stoppuhr aufgebaut. Die Koinzidenz ist über eine weitere Verzörgerungsleitung und eine monostabile Kippstufe (Monoflop) an zwei AND-Gatter angeschlossen. Diese sind mit einem Time-Amplitude-Converter (TAC) verbunden, welcher selbst an einen Vielkanalanalysator (Multi-Channel-Analyser, MCA) angeschlossen ist. Ein Computer liest diesen aus und speichert die gemessenen Daten.
+
+    \subsection{Wirkungsweise der "Stoppuhr-Schaltung"}
         Trotz der Bleiummantelung ist ein Anteil an äußerer Strahlung vorhanden. Um diesen Huntergrund später abzuziehen, wird dieser zunächst bestimmt. Dazu werden Messungen ohne Probe im 
         Zählrohr mit einer Integrationszeit von 300 Sekunden durchgeführt.
 
