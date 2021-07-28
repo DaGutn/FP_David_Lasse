@@ -14,6 +14,25 @@
 ]{siunitx}
 \sisetup{math-micro=\text{µ},text-micro=µ}
 
+%------------------------------------------------------------------------------
+%------------------------------ Bibliographie ---------------------------------
+%------------------------------------------------------------------------------
+
+\usepackage[
+  backend=biber,   % use modern biber backend
+  autolang=hyphen,
+  url=false,
+  isbn=false,
+  doi=true,
+  sorting=none, 
+                   % load hyphenation rules for if language of bibentry is not
+                   % german, has to be loaded with \setotherlanguages
+                   % in the references.bib use langid={en} for english sources
+]{biblatex}
+\addbibresource{references.bib}  % the bib file to use
+\DefineBibliographyStrings{german}{andothers = {{et\,al\adddot}}}  % replace u.a. with et al.
+
+
 %Mathematik------------------------------------------------------
 \usepackage[nice]{nicefrac}
 \usepackage{amsmath}   % unverzichtbare Mathe-Befehle

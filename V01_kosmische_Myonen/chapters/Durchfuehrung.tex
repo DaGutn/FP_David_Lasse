@@ -18,8 +18,14 @@
         Anschließend ist eine, durch eine elektronische Schaltung realisierte, Stoppuhr aufgebaut. Die Koinzidenz ist über eine weitere Verzörgerungsleitung und eine monostabile Kippstufe (Monoflop) an zwei AND-Gatter angeschlossen. Diese sind mit einem Time-Amplitude-Converter (TAC) verbunden, welcher selbst an einen Vielkanalanalysator (Multi-Channel-Analyser, MCA) angeschlossen ist. Ein Computer liest diesen aus und speichert die gemessenen Daten.
 
     \subsection{Wirkungsweise der "Stoppuhr-Schaltung"}
-        Trotz der Bleiummantelung ist ein Anteil an äußerer Strahlung vorhanden. Um diesen Huntergrund später abzuziehen, wird dieser zunächst bestimmt. Dazu werden Messungen ohne Probe im 
-        Zählrohr mit einer Integrationszeit von 300 Sekunden durchgeführt.
+        Zuerst wird die Funktionsweise eines Monoflop beschrieben: \\
+        Solange er nicht getriggert wird, gibt er ein Signal aus seinem negativen Output aus.
+        Wird der Monoflop getriggert wird das gesendete Signal über einen eingestellten Zeittraum, die Suchzeit $T_{\text{S}}$, vom negativen zum positiven Output gewechselt. Während dieser Suchzeit bewirken ankommende Signale nichts am Monoflop.
+
+        Das erste AND-Gatter bekommt das Signal der Koinzidenz als auch das negative Signal des Monoflop als Input.
+        Das heißt
+
+        Die Koinzidenz gibt ein erstes Signal aus. Dieses erreicht einerseits das 1. AND-Gatter als auch mit einer Verzörgerung von $30$ns den Monoflop, der 
 
     \subsection{Halbwertszeitbestimmung von Vanadium}
         Zur Halbwertszeitbestimmung von Vanadium wird eine Vanadiumprobe zunächst an einer Neutronenquelle platziert. Nachdem diese dort aktiviert wurde, wird sie in dem Zählrohr platziert und 

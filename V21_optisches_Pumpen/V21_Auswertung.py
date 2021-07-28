@@ -87,7 +87,7 @@ B1_ges = B1_hor + B1_sweep
 B2_hor = b_helm(r_hor, N_hor, I2_hor)
 B2_sweep = b_helm(r_sweep, N_sweep, I2_sweep)
 B2_ges = B2_hor + B2_sweep
-
+print(B2_ges)
 #print("Gesamte horizontale Magnetfeldstärke in Tesla")
 print(f"Dip1:{max(B1_ges), np.argmax(B1_ges)}, Dip2:{max(B2_ges), np.argmax(B2_ges)}")
 

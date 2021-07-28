@@ -31,30 +31,34 @@
     \subsection{Brechungsindex von Luft}
         Bei den Messungen zur Bestimmung des Brechungsindizes von Luft, sind alle drei Messreihen exakt identisch, sodass sie nicht gemittelt werden müssen. Aus der Zahl der Maxima, die der Zahl der 
         Nulldurchgänge entspricht, lässt sich anhand von Formel (Referenz) und bekannten Parametern des Experiments, wie der Länge der Gaszelle und der Wellenlänge des Lasers, der zugehörige Brechungsindex
-        bei entsprechendem Druck berechnen. Wenn diese Werte gegen den Druck in der Gaszelle aufgetragen werden ergibt sich ein linearer Zusammenhang, aus dem der Brechungsindex von Luft bei Normaldruck direkt 
-        abgelesen werden könnte.
+        bei entsprechendem Druck berechnen. Wenn das Quadrat des Brechungsindex n² gegen den Druck p in der Gaszelle aufgetragen wird, ergibt sich ein linearer Zusammenhang, der dem quadrierten Lorentz-Lorenz-Gesetz entspricht und neben dem Druck und des Brechungsindex auch die Temperatur zur Zeit der Messung $\text{T}_{\text{M}}=\SI{295.05}{\kelvin}$ und die allgemeine Gaskonstante R enthält. 
+
 
         \FloatBarrier
 
         \begin{figure}[h]
           \centering
           \includegraphics[width = 0.6\textwidth]{pictures/druck_lin.pdf}
-          \caption{In der Grafik ist der lineare Zusammenhang zwischen dem Brechungsindex und dem Druck der Luft klar zu erkennen. Dieser wird auch mit folgenden Parametern gefitted: }
+          \caption{In der Grafik ist der lineare Zusammenhang zwischen dem Quadrat des Brechungsindex und dem Druck der Luft klar zu erkennen. Dieser wird auch mit folgenden Parametern gefitted: }
           \label{fig:Aufbau}
         \end{figure}
 
         \FloatBarrier
 
-        In diesem Fall wird der Brechungsindex von Luft bei Normaldruck jedoch über das Lorentz-Lorenz-Gesetz bestimmt. Dazu muss zunächst die Molrefraktion bestimmt werden. Dieser ergibt sich
-        über Formel (Referenz) wie folgt:
+        \begin{align}
+            \text{n}^2 &= \frac{3\text{A}}{\text{RT}_{\text{M}}} \cdot \text{p} + 1 \\
+            \text{n}^2 &= \text{m} \cdot \text{p} + b
+        \end{align}
+
+        Aus der Steigung des linearen Zusammenhangs lässt sich die Molrefraktion A berechnen
 
         \begin{equation}
-            \text{A} = \num{0.4323 +- 0.0004} \qquad \text{bei} \qquad p = \SI{1006}{\milli\bar} 
+            \text{A} = \frac{\text{RT}_{\text{M}}\text{m}}{3} \qquad \text{mit} \qquad \text{m}=\SI{0.0005331(28)}{\per\bar}.
         \end{equation}
 
-        Mit der nun bekannten Molrefraktion A lässt sich der Brechungsindex von Luft bei Normalbedingungen direkt über das Lorentz-Lorenz-Gesetz (Referenz) bestimmen:
+        Mit der nun bekannten Molrefraktion A lässt sich der Brechungsindex von Luft bei Normalbedingungen direkt über das nicht quadrierte Lorentz-Lorenz-Gesetz (Referenz) bestimmen:
 
         \begin{equation}
-            \text{n}_{\text{Luft}}(\SI{1013}{\milli\bar}, \, \SI{288.15}{\kelvin}) = \num{1.00027412 +- 0.00000027}     
+            \text{n}_{\text{Luft}}(\SI{1013}{\milli\bar}, \, \SI{288.15}{\kelvin}) = \num{1.0002764 +- 0.0000014}     
         \end{equation}
         
