@@ -4,6 +4,7 @@
 # In[1]:
 
 
+
 import numpy as np
 import scipy as scipy
 import matplotlib.pyplot as plt
@@ -11,6 +12,12 @@ import scipy.constants as const
 from scipy.signal import find_peaks 
 import uncertainties.unumpy as unp 
 from uncertainties.unumpy import (nominal_values as noms, std_devs as stds)
+
+plt.rc('font', size=14, weight='normal')
+#mpl.rcParams['font.sans-serif'] = 'Arial'
+plt.rcParams['legend.fontsize'] = 14
+plt.rc('xtick', labelsize=14) 
+plt.rc('ytick', labelsize=14) 
 
 
 # Zunächst den Kontrast in Abhängigkeit der Polarisationsrichtung des Laserstrahls bestimmen
@@ -33,6 +40,9 @@ def linear(x, m, b):
 
 def kontrast(U_max, U_min):
     return (U_max-U_min)/(U_max+U_min)
+
+def kontrast_fit(x, A):
+    return np.abs(A*2*np.sin(x)*np.cos(x))
 
 def glasnullen(n, dicke, lam, theta):
     return dicke/lam * ( (n - 1) * theta**2 /(2*n)) 
@@ -57,14 +67,20 @@ def n_gas_A(A, p, R, T_norm):
 
 
 polwi, U_max, U_min = np.genfromtxt("kontrast_data.txt", unpack = "True")
+polwi_bogen = polwi/180 *np.pi
+kontrast_params, kontrast_cov = scipy.optimize.curve_fit(kontrast_fit, polwi_bogen, kontrast(U_max, U_min))
+kontrast_params_unc = unp.uarray(kontrast_params, np.diag(np.sqrt(kontrast_cov)))
+phi=np.linspace(0, 180, 1000)
 
 
 # In[51]:
 
 
-plt.plot(polwi, kontrast(U_max, U_min), "x")
+plt.plot(polwi, kontrast(U_max, U_min), "x", label="Messdaten")
+plt.plot(phi, kontrast_fit(phi*np.pi/180, *kontrast_params), "-", label="Fit")
 plt.xlabel("Polarisationswinkel [°]")
 plt.ylabel("Kontrast")
+plt.legend(loc="best")
 plt.savefig("Kontrast.pdf")
 plt.clf()
 
@@ -149,18 +165,18 @@ print("Brechungsindex von Luft")
 print(n_norm)
 
 
-# Brechungsindex über letzten Wert messen: p=1006 mbar, Nulldurchgänge=42
-
-# In[55]:
-
-
-n_1006 = 42*lam/laenge + 1
-A = mol_Brechung(R, 1.006, 295.05, n_1006)
-n_norm = n_gas_A(A, 1.013, R, 288.15)
-print("Molrefraktion A bei 1006mbar")
-print(A)
-print("Brechungsindex von Luft bei Normalbedingungen")
-print(n_norm)
+## Brechungsindex über letzten Wert messen: p=1006 mbar, Nulldurchgänge=42
+#
+## In[55]:
+#
+#
+#n_1006 = 42*lam/laenge + 1
+#A = mol_Brechung(R, 1.006, 295.05, n_1006)
+#n_norm = n_gas_A(A, 1.013, R, 288.15)
+#print("Molrefraktion A bei 1006mbar")
+#print(A)
+#print("Brechungsindex von Luft bei Normalbedingungen")
+#print(n_norm)
 
 
 ##################################################################################################################################################################
@@ -176,10 +192,13 @@ print("Steigung des linearen Zusammenhangs n² gegen p")
 print(n_quad_params_unc[0])
 
 
-plt.plot(druck, noms(n_gs)**2, "x")
-plt.xlabel("Druck [bar]")
-plt.ylabel("n²")
-plt.plot(x, linear(x, *n_quad_params))
+fig, axs = plt.subplots(figsize=(7,6))
+axs.plot(druck, noms(n_gs)**2, "x", label="Messwerte")
+axs.set_xlabel("Druck [bar]")
+axs.set_ylabel("n²")
+axs.plot(x, linear(x, *n_quad_params), label="Fit")
+axs.legend(loc="best")
+plt.savefig("n_quad_fit.pdf")
 
 
 n_norm = unp.sqrt(1+ 1.013*295.05*n_quad_params_unc[0]/288.15)
