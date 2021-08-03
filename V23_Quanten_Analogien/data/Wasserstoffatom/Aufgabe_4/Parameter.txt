@@ -1,0 +1,6 @@
+Sweep
+1600 Hz zu 2600 Hz
+Step-Size: 1 Hz
+Time/Step: 60 ms
+Sweep-Time ~48s
+1V entspricht 1kHz
