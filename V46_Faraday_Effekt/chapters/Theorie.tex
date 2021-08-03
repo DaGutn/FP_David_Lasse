@@ -105,7 +105,7 @@
 
         die von der Richtung des elektrischen Feldes des Lichts und des Suszeptibilität-Tensors $\underline{\underline{\chi}}$ des Materials abhängt. Dieser Tensor reduziert sich für isotope Medien zunächst
         auf ein Skalar. Bei nicht-isotropen Medien hingegen ergibt sich für $\underline{\underline{\chi}}$ eine Tensor 3. Stufe ergibt. Für diesen müssen zwei Fälle unterschieden werden. Wenn der Tensor 
-        symmetrisch ist und alle Nebenachsenelemente durch DIagonalisieren eliminiert werden können, tritt kein Faraday-Effekt auf. Wenn der Tensor jedoch nicht verschwindende Nebenachsenelemente besitzt
+        symmetrisch ist und alle Nebenachsenelemente durch Diagonalisieren eliminiert werden können, tritt kein Faraday-Effekt auf. Wenn der Tensor jedoch nicht verschwindende Nebenachsenelemente besitzt
         
         \begin{equation*}
             \underline{\underline{\chi}} =
@@ -114,11 +114,11 @@
                 -\text{i}\chi_{\text{xy}} & \chi_{\text{xx}} & 0 \\
                 0 & 0 & \chi_{\text{zz}}
             \end{pmatrix}
-            \label{eqn:suszeptibilität}
+            \label{eqn:suszeptibilität1}
         \end{equation*}
 
         lässt sich der Effekt der zirkularen Doppelbrechung erklären. Dazu wird das dielektrische Verschiebungsfeld $\vec{\text{D}} = \varepsilon_0 \cdot \vec{\text{E}} + \vec{\text{P}}$, welches für elektrische Felder
-        innerhalb von Medien gilt, mit der nicht symmetrischen Suszeptibilität \ref{eqn:suszeptibilität} in die Wellengleichung von Licht eingesetzt
+        innerhalb von Medien gilt, mit der nicht symmetrischen Suszeptibilität \ref{eqn:suszeptibilität1} in die Wellengleichung von Licht eingesetzt
 
         \begin{equation*}
             \vec{\nabla} \times \left(\vec{\nabla} \times \vec{\text{E}}\right) = - \frac{1}{\text{c}^2} \cdot \left(1 + \underline{\underline{\chi}}\right) \cdot \frac{\partial^2\vec{\text{E}}}{\partial\text{t}^2}
@@ -189,7 +189,7 @@
                 -\text{i}\chi_{\text{xy}} & \chi_{\text{xx}} & 0 \\
                 0 & 0 & \chi_{\text{zz}}
             \end{pmatrix}
-            \label{eqn:suszeptibilität}
+            \label{eqn:suszeptibilität2}
         \end{equation*}
 
         für die Suszeptibilität ersetzt wird. Aus dem Gleichungssystem der 3 Komponenten geht hervor, dass die Suszeptibilität die selbe Form wie im Abschnitt zur zirkularen Doppelbrechung hat und somit auch 
@@ -217,7 +217,8 @@
         durch die effektive Masse, um weiterhin eine korrekte Beschreibung zu gewährleisten.
 
         \begin{equation}
-            \theta_{\text{frei}}(\lambda) = \frac{\text{e}^3 \lambda^2}{8\pi^2\varepsilon_0 \text{c}^3} \cdot \frac{1}{\text{m*}} \cdot \frac{\text{NB}}{n}
+            \theta_{\text{frei}}(\lambda) = \frac{\text{e}^3 \lambda^2}{8\pi^2\varepsilon_0 \text{c}^3} \cdot \frac{1}{(\text{m*})^2} \cdot \frac{\text{NB}}{n}
+            \label{eqn:faraday}
         \end{equation}
 
         Dies erlaubt das Bestimmen der effektiven Masse über die Messung des Drehwinkels der Faraday-Rotation.

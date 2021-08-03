@@ -1,114 +1,139 @@
+\newpage
 \section{Auswertung}
-    \subsection{Untergrundzählrate}
-        Zuerst wird die Untergrundzählrate, die von jeder Messung abgezogen werden muss, um korrekte Messwerte zu bekommen.
-        Deshalb wurden Werte für die Untergrundrate jeweils mit einer Integrationszeit von 300s gemessen:
+    \subsection{Ausmessung des Magnetfeldes}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width = 0.7\textwidth]{plots/Magnetfeld.pdf}
+            \caption{Die Magnetfeldstärke $B(z)$ ist gegen den Abstand zum Ort der Proben aufgetragen.}
+            \label{fig:Magnetfeld}
+        \end{figure}
+
+        \FloatBarrier
+    
+        Um die maximale Feldstärke $B_{\text{max}}$ zu bestimmen wird ein Fit der Funktion
         \begin{equation*}
-            N_U = \{129, 143, 144, 136, 139, 126, 158\}
+            f(x) = ax^4 + bx^3 + cx^2 + dx + e
         \end{equation*}
+        durch die Messwerte gelegt. Diese ergibt sich daraus zu $B_{\text{max}} \approx 0,393 \,$mT und wird im Nachfolgenden in den Berechnungen zur effektiven Masse benutzt.
 
-        Der Mittelwert dieser Werte ist $N_{\text{U,m}} = (139 \pm 10)\,$Imp/300s. Da die Zählraten der Proben jedoch mit verschiedenen Integrationszeiten gemessen wurden, muss der Mittelwert auf diese Zeiten angepasst werden.
-
-    \subsection{Vanadium}
-        Da bei dieser Messreihe eine Messzeit von $\Delta t = 30$s verwendet wurde, wird die Untergrundzählrate durch 10 geteilt und von den gemessenen Werten $N^*_{\Delta t}$ abgezogen:
+    \subsection{Darstellung der Messwerte}
+        Wie schon beschrieben wurden zwei Messreihen pro Probe aufgenommen, jeweils für eine Richtung des Magnetfeldes. Für jede Probe wird die Faraday-Rotation nach \autoref{eqn:zweiwinkel} bestimmt.
+        
+        Da alle drei Proben verschiedene Dicken haben muss der Winkel der Faraday-Rotation zuerst auf die jeweilige Dicke $L$ der Probe normiert werden, bevor die Winkel miteinander verglichen und verrechnet werden können. Dies führt dann zu der folgenden Formel für die normierten Winkel:
         \begin{equation*}
-            N_{\Delta t} = N^*_{\Delta t} - \frac{N_{\text{U,m}}}{10}
+            \theta_{\text{norm}} = \frac{\theta_1 - \theta_2}{2 L}
         \end{equation*}
         
-        Die Messwerte werden halblogarithisch aufgetragen. Nach \autoref{eqn:theorieGerade} sollten die Werte theoretisch ca. proportional zur Zerfallskonstante $\lambda$ sein:
-        \begin{align*}
-            &\underbrace{\ln\left(N_{\Delta t}(t)\right)} = \underbrace{\ln \left(N_0 \cdot \left(1 - e^{-\lambda \Delta t}\right)\right)} \underbrace{ - \lambda} \hspace{2pt} \cdot \hspace{3pt} \underbrace{t} \\
-            & \hspace{26pt} y \hspace{25pt} = \hspace{47pt} b \hspace{49pt} + m \cdot x
-        \end{align*}            
-
-        Deshalb kann eine lineare Regression durch alle Werte durchgeführt werden, um die Zerfallskonstante und damit auch die Halbwertszeit anhand von \autoref{eqn:Halbwertszeit} zu berechnen.
-        Es ist jedoch leicht in \autoref{fig:Vanadium} zu erkennen, dass die Messwerte aufgrund der halblogarithmischen Darstellungsweise stark divergieren.
-
-        Deswegen wird zuerst mithilfe der ersten linearen Regression die vorläufige Halbwertszeit $T_{\nicefrac{1}{2}}$ bestimmt und für die zweite lineare Regression werden nur die Messwerte bis ca. zur doppelten Halbwertszeit, in diesem Fall die ersten 14, verwendet.
-
         \begin{figure}[h]
             \centering
-            \includegraphics[width = 0.8\textwidth]{pictures/HalbwertszeitGraph_Vanadium.png}
-            \caption{Es sind die Werte aus \autoref{tab:Vanadium} halblogarithmisch aufgetragen und eine Ausgleichgerade wird zuerst durch alle Punkte und eine zweite Ausgleichsgerade durch die ersten 14 Werte durchgeführt.}
-            \label{fig:Vanadium}
+            \includegraphics[width = 0.75\textwidth]{plots/Winkel_normiert.pdf}
+            \caption{Die normierten Winkel der Faraday-Rotation für jede der drei Proben sind gegen die quadrierte betrachtete Wellenlänge aufgetragen.}
+            \label{fig:Winkel_normiert}
         \end{figure}
 
         \FloatBarrier
 
-        Für die erste und zweite Ausgleichsgerade ergeben sich folgende Werte:
-        \begin{align*}
-            m_1 = (-3,17 \pm 0,16 \cdot 10^{-3}) \text{s}^{-1} \hspace{75pt} b_1 = (5,19 \pm 0,13) \\
-            m_2 = (-3,23 \pm 0,24 \cdot 10^{-3}) \text{s}^{-1} \hspace{75pt} b_2 = (5,32 \pm 0,06)
-        \end{align*}
+    \subsection{Bestimmung der effektiven Masse}
+        Um die effektive Masse freier Elektronen zu bestimmen werden n-dotierte Proben benutzte, da diese freie Elektronen mitbringen welche die Differenz zwischen den normierten Winkeln der hochreinen und den zwei n-dotierten Proben gebildet $\Delta \theta_{\text{norm}} = \theta_{\text{norm,dot}} - \theta_{\text{norm,rein}}$ verursachen.
 
-        Also ergibt sich mit \autoref{eqn:Halbwertszeit} für die Halbwertszeiten
-        \begin{align*}
-            T_{\nicefrac{1}{2} \text{, 1}} = (219 \pm 11)\, \text{s} \\
-            T_{\nicefrac{1}{2} \text{, 2}} = (214 \pm 16)\, \text{s}
-        \end{align*}
-        und aus dem y-Achsenabschnitt werden die Vorfaktoren
-        \begin{align*}
-            \text{e}^{b_1} = N_0 \left(1 - e^{-\lambda_1 \Delta t}\right) = (178 \pm 23) \,\text{Imp} \\
-            \text{e}^{b_2} = N_0 \left(1 - e^{-\lambda_2 \Delta t}\right) = (205 \pm 12) \,\text{Imp}
-        \end{align*}
-        berechnet.
-
-        Die Abweichung der Halbwertszeit vom Literaturwert $T_{\nicefrac{1}{2} \text{,lit}} = 224,6 \,$s sind:
-        \begin{align*}
-            a_1 = \frac{T_{\nicefrac{1}{2} \text{,lit}} - T_{\nicefrac{1}{2} \text{, 1}}}{T_{\nicefrac{1}{2} \text{,lit}}} = 2,6 \, \% \\
-            a_2 = \frac{T_{\nicefrac{1}{2} \text{,lit}} - T_{\nicefrac{1}{2} \text{, 2}}}{T_{\nicefrac{1}{2} \text{,lit}}} = 4,5 \, \%
-        \end{align*}
-
-    \newpage
-    \subsection{Rhodium}
-        Bei dem Zerfall von Rhodium besteht das Problem, dass gleichzeitig zwei verschiedene Zerfallsprozesse stattfinden (siehe \autoref{eqn:Rhodium}).
-
-        Davon läuft der Eine langsamer und der Andere schneller ab. Deshalb sind nach einer gewissen Zeit $t^*$ in der Messung alle schnellen Zerfallsprozesse abgelaufen und es bleibt nur noch der langsame Zerfall. Das kann ist gut in \autoref{fig:Rhodium} daran erkennbar, dass der Graph zuerst schnell fällt und dann ab ca. $t^*$ einen linearen Anteil aufweist.
-
-        Es wird also zuerst die lineare Regression durch den linearen Teil des Graphen gemacht. Bei diesem Fall wurden die 18 letzten Messwerte benutzt.
-
-        Dann wird die Ausgleichsgerade extrapoliert und von dem Graphen subtrahiert. Dabei ist darauf zu achten, dass alle Werte der Ausgleichsgeraden unterhalb der Werten $N_{\Delta t}(t)$ mit $t < t^*$ liegen.
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width = 0.8\textwidth]{pictures/HalbwertszeitGraph_Rhodium.png}
-            \caption{Es sind die Werte aus \autoref{tab:Rhodium} halblogarithmisch aufgetragen und eine Ausgleichgerade durch die letzten 18 Werte durchgeführt. Anschließend wird eine Ausgleichsgerade durch die ersten 14 korrigierten Werte durchgeführt.}
-            \label{fig:Rhodium}
-        \end{figure}
-
-        \FloatBarrier
-        
-        Aus den Parametern der Ausgleichsgerade für den langsamen Zerfall
+        Nach \eqref{eqn:faraday} sollte der Winkel der Faraday-Rotation proportional zur quadrierten Wellenlänge sein.
+        Deshalb wird durch die Messwerte in \autoref{fig:Faraday_1} und \autoref{fig:Faraday_2} jeweils ein linearer Fit gelegt
         \begin{equation*}
-            m_l = (-3,31 \pm 1,00 \cdot 10^{-3}) \text{s}^{-1} \hspace{75pt} b_l = (4,57 \pm 0,54)
+            f(x) = a \cdot x
         \end{equation*}
-
-        ergibt sich mit der gleichen Rechnung wie beim Vanadium die Halbwertszeit $T_{\nicefrac{1}{2} \text{, l}} = (209 \pm 63) \,$s und der Vorfaktor $e^{b_l} = (96,5 \pm 51,8) \,$Imp. \\
-
-        Wie in \autoref{fig:Rhodium} zu erkennen ist, macht es keinen Sinn die Ausgleichsgerade in einen Graphen einzuzeichnen, in dem der langsame Zerfall noch vorhanden ist.
+        wobei sich die für die beiden dotierten Proben die folgenden Steigungen ergeben:
+        \begin{align*}
+            m_1 = (0,00701 \pm 0,00054) \, \frac{\text{rad}}{\mu \text{m}^2 \cdot \text{mm}} \\[7pt]
+            m_2 = (0,01345 \pm 0,00082) \, \frac{\text{rad}}{\mu \text{m}^2 \cdot \text{mm}}
+        \end{align*}
+    
         \begin{figure}[h]
             \centering
-            \includegraphics[width = 0.8\textwidth]{pictures/HalbwertszeitGraph_Rhodium_kurzlebig.png}
-            \caption{Es sind die ersten 14 Werte aus \autoref{tab:Rhodium} halblogarithmisch aufgetragen, nachdem der langsame Zerfall abgezogen wurde.}
-            \label{fig:RhodiumSchnell}
+            \includegraphics[width = 0.8\textwidth]{plots/Faraday_1.pdf}
+            \caption{Die Differenz der Faraday-Rotation zwischen der hochreinen und ersten dotierten Probe wird gegen die quadrierte Wellenlängeaufgetragen.}
+            \label{fig:Faraday_1}
         \end{figure}
 
         \FloatBarrier
 
-        Aus den Parametern der Ausgleichsgerade für den schnellen Zerfall
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width = 0.8\textwidth]{plots/Faraday_2.pdf}
+            \caption{Die Differenz der Faraday-Rotation zwischen der hochreinen und zweiten dotierten Probe wird gegen die quadrierte Wellenlängeaufgetragen.}
+            \label{fig:Faraday_2}
+        \end{figure}
+
+        \FloatBarrier
+
+        Aus \eqref{eqn:faraday} kann also mithilfe der Steigung $a$ die effektive Masse bestimmt werden,
         \begin{equation*}
-            m_s = (-18,1 \pm 0,4 \cdot 10^{-3}) \text{s}^{-1} \hspace{75pt} b_s = (6,76 \pm 0,05)
+            m^* = \sqrt{\frac{\text{e}^3 \lambda^2}{8\pi^2\varepsilon_0 \text{c}^3} \cdot \frac{N B_{\text{max}}}{n} \cdot \frac{1}{a}}
         \end{equation*}
+        wobei der Brechungsindex $n \approx 3,34$ ist, im Bereich der mittleren betrachteten Wellenlänge $\lambda_{\text{mittl}} \approx 1,904 \, \mu$m.
 
-        ergibt sich mit der gleichen Rechnung wie beim Vanadium die Halbwertszeit $T_{\nicefrac{1}{2} \text{, s}} = (38,4 \pm 0,8)$ und der Vorfaktor $e^{b_s} = (862,8 \pm 41) \,$Imp. \\
-
-        Die Abweichung der Halbwertszeit des langsamen und schnellen Zerfalls von den Literaturwerten $T_{\nicefrac{1}{2} \text{,l,lit}} = 260,4 \,$s und $T_{\nicefrac{1}{2} \text{,s,lit}} = 42,3 \,$s sind jeweils:
+        Es ergeben sich jeweils für die beiden Proben die effektiven Massen von:
         \begin{align*}
-            &a_l = 19,6 \, \% \\
-            &a_s = 9,2 \, \%
+            m^*_1 = (6,634 \pm 0,253) \cdot 10^{-32} \, \text{kg} \\[5pt]
+            m^*_2 = (4,788 \pm 0,145) \cdot 10^{-32} \, \text{kg}
+        \end{align*}
+        In Anteilen von Elektronenmassen ist dies:
+        \begin{align*}
+            r_1 = \frac{m^*_1}{m_{\text{e}}} = (0,073 \pm 0,003) \\[7pt]
+            r_2 = \frac{m^*_2}{m_{\text{e}}} = (0,053 \pm 0,002)
         \end{align*}
 
-        Die Theoriekurve in \autoref{fig:Rhodium} wurde mit den jetzt bekannten Werten für die Zerfallskonstanten gezeichnet, anhand folgender Formel, die aus der Summe der beiden Gleichungen \ref{eqn:Zerfallsgesetz_} für den langsamen Zerfall und schnellen Zerfall entsteht:
+        Die relative Messabweichung vom Theoriewert für GaAs $r_{\text{th}} = \nicefrac{m^*}{m_{\text{e}}} \approx 0,067$ entnommen aus \cite{ciddor_refractive_1996} ist jeweils:
         \begin{align*}
-            &&N_{\Delta t, ges} &= N_0 (1 - e^{-\lambda_l \Delta t}) \cdot e^{-\lambda_l t} + N_0 (1 - e^{-\lambda_s \Delta t}) \cdot e^{-\lambda_s t} \\
-            \implies &&\ln\Bigl(N_{\Delta t, ges} \Bigr) &= \ln\Bigl(N_0 (1 - e^{-\lambda_l \Delta t}) \cdot e^{-\lambda_l t} + N_0 (1 - e^{-\lambda_s \Delta t}) \cdot e^{-\lambda_s t} \Bigr)
+            A_1 &= \left|\frac{r_1 - r_{\text{th}}}{r_{\text{th}}}\right| \approx (8,70 \pm 4,15) \% \\[7pt]
+            A_2 &= \left|\frac{r_2 - r_{\text{th}}}{r_{\text{th}}}\right| \approx (21,6 \pm 2,4) \%
         \end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

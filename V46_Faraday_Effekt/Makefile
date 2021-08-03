@@ -10,12 +10,12 @@ TexOptions = -pvc \
 
 .PRECIOUS: build/Abgabe.pdf
 
-build/Abgabe.pdf: pictures/Aufbau.png \
-				  #pictures/HalbwertzeitGraph_Rhodium_kurzlebig.png \#
-				  pictures/HalbwertzeitGraph_Rhodium.png \
-				  pictures/HalbwertzeitGraph_Vanadium.png \
-				  pictures/HalbwertzeitGraph.png \
-				  pictures/RhSchema.png
+#build/Abgabe.pdf: pictures/Aufbau.png \
+#				  #pictures/HalbwertzeitGraph_Rhodium_kurzlebig.png \#
+#				  pictures/HalbwertzeitGraph_Rhodium.png \
+#				  pictures/HalbwertzeitGraph_Vanadium.png \
+#				  pictures/HalbwertzeitGraph.png \
+#				  pictures/RhSchema.png
 
 build/Abgabe.pdf: FORCE | build
 	latexmk $(TexOptions) Abgabe.tex

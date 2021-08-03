@@ -1,201 +1,193 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import uncertainties.unumpy as unp
 from uncertainties import ufloat
-from uncertainties.umath import *
-from uncertainties import unumpy
 from uncertainties.unumpy import (nominal_values as noms, std_devs as stds)
 from scipy.optimize import curve_fit
-import scipy.constants as const
-
-def f(x, a, b):
-    return a*x + b
-
-def g(x, a, b, c, d):
-    return np.log(noms(a) * np.exp(-noms(b)*x) + noms(c) * np.exp(-noms(d)*x))
+import scipy.constants as c
 
 ###########################################################################################################
-### Mittelwert der Untergrundzählrate mit Integrationszeit/Messzeit von 300s berechnen
-N_U_a = np.array([129, 143, 144, 136, 139, 126, 158])
-N_U = ufloat(np.mean(N_U_a), np.std(N_U_a))
-N_U_30 = ufloat(np.mean(N_U_a), np.std(N_U_a)) / 10
-N_U_15 = ufloat(np.mean(N_U_a), np.std(N_U_a)) / 20
-print("Die Untergrundzaehllrate über den Integrationszeitraum 300s, 30s:")
-print("{:.3f}".format(N_U))
-print("{:.3f}".format(N_U_30))
-print("{:.3f}".format(N_U_15))
+### Mittelwert der Magnetfeldrichtungen B(z) gegen Ort z von der Mitte des Probenspaltes aus auftragen
 
+#Zu fittende Funktion
+def x_hoch4(x, a, b, c, d, e):
+    return a*x**4 + b*x**3 + c*x**2 + d * x + e
 
-###########################################################################################################
-### Messwerte von Vanadium plotten, fitten und auswerten
+#Daten einlesen
+df_B = pd.read_csv('data/Magnetfeld.csv', delimiter=';')
+z = df_B['z'].to_numpy()
+B_1 = df_B['Magnetfeldstaerke1'].to_numpy()
+B_2 = df_B['Magnetfeldstaerke2'].to_numpy()
+B = (np.abs(B_1) + B_2) / 2
+print(B)
 
-# Untergrund von den Messwerten abziehen und Messunsicherheit berechnen
-t, N_alt = np.genfromtxt("data/Vanadium.dat", delimiter = "", unpack = True)
-t_besser = t[0:13]
-N = unumpy.uarray(N_alt - noms(N_U_30), np.sqrt(N_alt - noms(N_U_30)))
-np.savetxt('data/test.txt', np.column_stack([np.round(noms(N), 2), np.round(stds(N), 2)]), fmt='%10.2f')
+#Fitten
+params_B, cov_B = curve_fit(x_hoch4, z[1:], B[1:])
+errors_B = np.sqrt(np.diag(cov_B))
 
-# Halblogarithmischen Graphen der korregierten Zählrate N gegen die Zeit t plotten
-Z = unumpy.log(N)
-Z_besser = Z[0:13]
-plt.errorbar(t, noms(Z), xerr = 0, yerr = stds(Z), fmt = "b.", label = r"Messwerte")
+#Plotten
+fig, ax = plt.subplots()
 
-# Ausgleichgerade durch alle und durch die ersten 14 Messwerte legen
-params, cov_matrix = curve_fit(f, t, noms(Z))
-m = ufloat(params[0], np.sqrt(cov_matrix[0, 0]))
-b = ufloat(params[1], np.sqrt(cov_matrix[1, 1]))
+z_lin = np.linspace(z[0], z[-1], 200)
+ax.plot(z, B, 'b.', label='Messwerte')
+ax.plot(z_lin, x_hoch4(z_lin, *params_B), 'orange', alpha=0.8, label='Fit')
+ax.set_xlabel(r'$\Delta z \;$ [mm]')
+ax.set_ylabel(r'$B(z) \;$ [mT]')
+ax.legend(markerscale=2)
 
-params_besser, cov_matrix_besser = curve_fit(f, t_besser, noms(Z_besser))
-m_besser = ufloat(params_besser[0], np.sqrt(cov_matrix_besser[0, 0]))
-b_besser = ufloat(params_besser[1], np.sqrt(cov_matrix_besser[1, 1]))
+plt.savefig('plots/Magnetfeld.pdf')
 
-t_lin = np.linspace(t[0], t[-1])
-t_lin_besser = np.linspace(30, 440)
+B_max = np.max(x_hoch4(z_lin, *params_B)) * 10**(-3)
+print(r'B_max =', B_max)
+print('\n')
 
-plt.plot(t_lin, f(t_lin, *params), "r", label = r"1. Ausgleichsgerade")
-plt.plot(t_lin_besser, f(t_lin_besser, *params_besser), "g", label = r"2. Ausgleichsgerade")
-
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Vanadium.png")
-#plt.show()
-plt.clf()
-
-# Die Zerfallskonstante und Halbwertszeit berechnen
-lam = np.abs(m)
-lam_besser = np.abs(m_besser)
-T = np.log(2) / lam
-T_besser = np.log(2) / lam_besser
-N_0_Faktor = exp(b)
-N_0_Faktor_besser = exp(b_besser)
-
-# Ergebnisse ausdrucken aus der anfänglichen und verbesserten Rechnung für den Zerfall von Vanadium
-print()
-print("Parameter der 1. lin. Reg. zum halblogarithmischen Graphen:")
-print("{:.6f}".format(m))
-print("{:.2f}".format(b))
-
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für 1. lin. Reg.:")
-print("{:.6f}".format(lam))
-print("{:.2f}".format(T))
-print("{:.5f}".format((224.6 - T) / 224.6))
-print("exp(y-Achsenabschnitt) / Vorfaktor für 1. lin. Reg.:")
-print("{:.2f}".format(N_0_Faktor))
-
-print()
-print("Parameter der 2. verbesserten lin. Reg. zum halblogarithmischen Graphen:")
-print("{:.6f}".format(m_besser))
-print("{:.2f}".format(b_besser))
-
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für 2. verbesserte lin. Reg.:")
-print("{:.6f}".format(lam_besser))
-print("{:.2f}".format(T_besser))
-print("{:.5f}".format((224.6 - T_besser) / 224.6))
-print("exp(y-Achsenabschnitt) / Vorfaktor für 2. verbesserte lin. Reg.:")
-print("{:.2f}".format(N_0_Faktor_besser))
+#Parameter
+parameter_B = unp.uarray(params_B, errors_B)
+for name, param in zip(('a','b','c','d','e'), parameter_B):
+    print(r'{0}: {1:.8f}'.format(name, param))
+print('\n')
 
 
 ###########################################################################################################
-### Messwerte von Rhodium plotten, fitten und auswerten
+### Messwerte von hochreinem und zwei dotierten Proben GaAs plotten
 
-# Untergrund von den Messwerten abziehen und Messunsicherheit berechnen
-t_Rhodium, N_alt_Rhodium = np.genfromtxt("data/Rhodium.dat", delimiter = "", unpack = True)
-t_lang = t_Rhodium[26:44]
-N_Rhodium = unumpy.uarray(N_alt_Rhodium - noms(N_U_15), np.sqrt(N_alt_Rhodium - noms(N_U_15)))
-np.savetxt('data/test_lang.txt', np.column_stack([t_Rhodium, np.round(np.log(noms(N_Rhodium)), 4), np.round(stds(unumpy.log(N_Rhodium)), 4)]), fmt='%10.4f')
+#Daten einlesen und zu plottende Variablen berechnen
+df = pd.read_csv('data/Winkel_Filter.csv', delimiter=';', decimal=',')
 
-Z_Rhodium = unumpy.log(N_Rhodium)
-Z_lang = Z_Rhodium[26:44]
+lamda = df['Filter_lambda'].to_numpy(dtype='float64')
+lamda2 = lamda**2
 
-# Halblogarithmischen Graphen der korregierten Zählrate N_Rhodium gegen die Zeit t_Rhodium plotten
-plt.errorbar(t_Rhodium, noms(Z_Rhodium), xerr = 0, yerr = stds(Z_Rhodium), fmt = "b.", label = r"Messwerte")
+theta_rein_1 = df['GaAs_hochrein_Winkel_1'].to_numpy() * np.pi / 180
+theta_rein_2 = df['GaAs_hochrein_Winkel_2'].to_numpy() * np.pi / 180
+theta_rein_nom = (theta_rein_1 - theta_rein_2) / (2 * 5.11)
 
-# Ausgleichgerade durch die letzten 18 Messwerte fitten
-params_lang, cov_matrix_lang = curve_fit(f, t_lang, noms(Z_lang))
-m_lang = ufloat(params_lang[0], np.sqrt(cov_matrix_lang[0, 0]))
-b_lang = ufloat(params_lang[1], np.sqrt(cov_matrix_lang[1, 1]))
+theta_dot1_1 = df['GaAs_dot1_Winkel_1'].to_numpy() * np.pi / 180
+theta_dot1_2 = df['GaAs_dot1_Winkel_2'].to_numpy() * np.pi / 180
+theta_dot1_nom = (theta_dot1_1 - theta_dot1_2) / (2 * 1.34)
 
-# Die Zerfallskonstante und Halbwertszeit für den langlebigen Zerfall berechnen
-lam_lang = np.abs(m_lang)
-T_lang = np.log(2) / lam_lang
-N_0_Faktor_lang = exp(b_lang)
+theta_dot2_1 = df['GaAs_dot2_Winkel_1'].to_numpy() * np.pi / 180
+theta_dot2_2 = df['GaAs_dot2_Winkel_2'].to_numpy() * np.pi / 180
+theta_dot2_nom = (theta_dot2_1 - theta_dot2_2) / (2 * 1.296)
 
-# Untergrund und Zählrate des langlebigen Zerfalls von den Messwerten abziehen
-t_kurz = t_Rhodium[0:14]
-N_Rhodium_korr = noms(N_Rhodium) - noms(N_0_Faktor_lang) * np.exp(-noms(lam_lang)*noms(t_Rhodium))
-np.savetxt('data/test_kurz.txt', np.column_stack([t_Rhodium, np.round(np.log(np.abs(N_Rhodium_korr)), 4)]), fmt='%10.4f')
+theta_diff1 = theta_dot1_nom - theta_rein_nom
+theta_diff2 = theta_dot2_nom - theta_rein_nom
+#theta_diff1 = np.append(theta_diff1[0:6], theta_diff1[8])
+#theta_diff2 = np.append(theta_diff2[0:6], theta_diff2[8])
 
-Z_kurz = np.log(N_Rhodium_korr[0:14])
+#Plotten
+fig, ax = plt.subplots()
 
-# Ausgleichgerade durch die ersten 14 Messwerte fitten
-params_kurz, cov_matrix_kurz = curve_fit(f, t_kurz, Z_kurz)
-m_kurz = ufloat(params_kurz[0], np.sqrt(cov_matrix_kurz[0, 0]))
-b_kurz = ufloat(params_kurz[1], np.sqrt(cov_matrix_kurz[1, 1]))
+ax.scatter(lamda2, theta_rein_nom, s=25, c='blue', marker='x', label='hochrein')
+ax.scatter(lamda2, theta_dot1_nom, s=25, c='limegreen', marker='x', label=r'$1,2 \cdot 10^{18} / \mathrm{cm}^3$ n-dotiert')
+ax.scatter(lamda2, theta_dot2_nom, s=25, c='crimson', marker='x', label=r'$2,8 \cdot 10^{18} / \mathrm{cm}^3$ n-dotiert')
+ax.set_xlabel(r'$\lambda^2 \; [\mu\mathrm{m}^2]$')
+ax.set_ylabel(r'$\theta_{\mathrm{norm}} \; [\frac{\mathrm{rad}}{\mathrm{mm}}]$')
 
-# Die Zerfallskonstante und Halbwertszeit für den kurzlebigen Zerfall berechnen
-lam_kurz = np.abs(m_kurz)
-T_kurz = np.log(2) / lam_kurz
-N_0_Faktor_kurz = exp(b_kurz)
+#Legende (Labels in umgekehrter Reihenfolge)
+handles, labels = ax.get_legend_handles_labels()
+#handles, labels = handles[::-1], labels[::-1]
+# Folgendes sortiert nach Länge des Labels (kürzestes zuerst)
+#handles, labels = zip(*sorted(zip(handles, labels), key=lambda t: t[1], reverse=True))
+ax.legend(handles, labels, markerscale=1.5, scatteryoffsets=[0.5])
 
-# Ausgleichsgeraden in den Graphen einzeichnen
-t_lin_Rhodium = np.linspace(0, 660)
-
-plt.plot(t_lin_Rhodium, f(t_lin_Rhodium, *params_lang), "r", label = r"Langer Zerfall Ausgleichsgerade")
-plt.plot(t_lin_Rhodium, f(t_lin_Rhodium, *params_kurz), "g", label = r"Kurzer Zerfall Ausgleichsgerade")
-
-plt.plot(t_lin_Rhodium, g(t_lin_Rhodium, N_0_Faktor_lang, lam_lang, N_0_Faktor_kurz, lam_kurz), "k", label = r"Errechnete Kurve")
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.ylim(0)
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Rhodium.png")
-#plt.show()
-plt.clf()
+plt.savefig('plots/Winkel_normiert.pdf')
 
 
-# Messwerte nach Subtraktion von langlebigem Zerfall plotten und die Ausgleichsgerade des kurzlebigen Zerfalls aufzeichnen
-t_lin_Rhodium_kurz = np.linspace(0, 230)
+###########################################################################################################
+### Differenz der Messwerte von dotiertem zu hochreinem GaAs plotten, fitten und auswerten
 
-plt.plot(t_kurz, noms(Z_kurz), "b.", label = r"Messwerte")
-plt.plot(t_lin_Rhodium_kurz, f(t_lin_Rhodium_kurz, *params_kurz), "g", label = r"Kurzer Zerfall Ausgleichsgerade")
+#lamda = np.append(lamda[0:6], lamda[8])
+#lamda2 = lamda**2
 
-plt.xlabel(r"$\Delta t$ [s]")
-plt.ylabel(r"$ln{N}$")
-plt.legend(loc = "best")
-plt.savefig("pictures/HalbwertszeitGraph_Rhodium_kurzlebig.png")
-#plt.show()
-plt.clf()
+#Zu fittende Funktion
+def lin(x, m):
+    return m * x
+
+### Fitten für die 1. dotierte Probe
+params1, cov1 = curve_fit(lin, lamda2, theta_diff1)
+errors1 = np.sqrt(np.diag(cov1))
+
+#Plotten für die 1. dotierte Probe
+fig, ax = plt.subplots()
+
+ax.scatter(lamda2, theta_diff1, s=25, c='limegreen', marker='x', label=r'$1,2 \cdot 10^{18} / \mathrm{cm}^3$ n-dotiert')
+ax.plot(lamda2, lin(lamda2, *params1), 'orange', alpha=0.9, label='Ausgleichsgerade')
+ax.set_xlabel(r'$\lambda^2 \; [\mu\mathrm{m}^2]$')
+ax.set_ylabel(r'$\Delta \theta_{\mathrm{norm}} \; [\frac{\mathrm{rad}}{\mathrm{mm}}]$')
+
+#Legende (Labels in umgekehrter Reihenfolge)
+handles, labels = ax.get_legend_handles_labels()
+handles, labels = handles[::-1], labels[::-1]
+ax.legend(handles, labels, markerscale=2, scatteryoffsets=[0.5])
+
+plt.savefig('plots/Faraday_1.pdf')
 
 
-# Ergebnisse ausdrucken für den langlebigen und kurzlebigen Zerfall von Rhodium
+### Fitten für die 1. dotierte Probe
+params2, cov2 = curve_fit(lin, lamda2, theta_diff2)
+errors2 = np.sqrt(np.diag(cov2))
+
+#Plotten für die 2. dotierte Probe
+fig, ax = plt.subplots()
+
+ax.scatter(lamda2, theta_diff2, s=25, c='crimson', marker='x', label=r'$2,8 \cdot 10^{18} / \mathrm{cm}^3$ n-dotiert')
+ax.plot(lamda2, lin(lamda2, *params2), 'orange', alpha=0.9, label='Ausgleichsgerade')
+ax.set_xlabel(r'$\lambda^2 \; [\mu\mathrm{m}^2]$')
+ax.set_ylabel(r'$\Delta \theta_{\mathrm{norm}} \; [\frac{\mathrm{rad}}{\mathrm{mm}}]$')
+
+#Legende (Labels in umgekehrter Reihenfolge)
+handles, labels = ax.get_legend_handles_labels()
+handles, labels = handles[::-1], labels[::-1]
+ax.legend(handles, labels, markerscale=2, scatteryoffsets=[0.5])
+
+plt.savefig('plots/Faraday_2.pdf')
+
+
+#Parameter
+parameter1 = unp.uarray(params1, errors1)
+parameter2 = unp.uarray(params2, errors2)
+for name, param in zip(('m'), parameter1):
+    print(r'{0}: {1:.8f}'.format(name, param))
+for name, param in zip(('m'), parameter2):
+    print(r'{0}: {1:.8f}'.format(name, param))
+print('\n')
+
+
+###########################################################################################################
+### Effektive Masse der freien zusätzlichen Elektronen in den beiden dotierten Proben bestimmen
+
+lam = np.sum(lamda) / 9
+print(r'lamda_mitt =', lam)
 print()
-print("Parameter der lin. Reg. zum halblogarithmischen Graphen zum langlebigen Zerfall:")
-print("{:.6f}".format(m_lang))
-print("{:.2f}".format(b_lang))
 
-print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für lin. Reg. des langlebigen Zerfalls:")
-print("{:.6f}".format(lam_lang))
-print("{:.1f}".format(T_lang))
-print("{:.3f}".format((260.4 - T_lang) / 260.4))
-print("exp(y-Achsenabschnitt) / Vorfaktor für lin. Reg. des langlebigen Zerfalls:")
-print("{:.2f}".format(N_0_Faktor_lang))
+const = c.elementary_charge**3 / (8 * np.pi**2 * c.epsilon_0 * c.speed_of_light**3)
 
-print()
-print("Parameter der lin. Reg. zum halblogarithmischen Graphen zum kurzlebigen Zerfall:")
-print("{:.6f}".format(m_kurz))
-print("{:.2f}".format(b_kurz))
+N_1 = 1.2 * 10**(24)
+N_2 = 2.8 * 10**(24)
+n = 3.34
 
+uparams1 = ufloat(params1[0], errors1[0])
+uparams2 = ufloat(params2[0], errors2[0])
+
+m_eff1 = unp.sqrt(const * B_max * N_1 / (n * uparams1 * 10**(15)))
+m_eff2 = unp.sqrt(const * B_max * N_1 / (n * uparams2 * 10**(15)))
+print('m_eff1 = {:.4}'.format(m_eff1))
+print('m_eff2 = {:.4}'.format(m_eff2))
 print()
-print("Zerfallskonstante, Halbwertszeit und Abweichung vom theo. Wert für lin. Reg. des kurzlebigen Zerfalls:")
-print("{:.6f}".format(lam_kurz))
-print("{:.1f}".format(T_kurz))
-print("{:.3f}".format((42.3 - T_kurz) / 42.3))
-print("exp(y-Achsenabschnitt) / Vorfaktor für lin. Reg. des kurzlebigen Zerfalls:")
-print("{:.2f}".format(N_0_Faktor_kurz))
+
+rel1 = m_eff1 / c.electron_mass
+rel2 = m_eff2 / c.electron_mass
+print('rel1 =', rel1)
+print('rel2 =', rel2)
+print()
+
+a1 = (rel1 - 0.067) / 0.067
+a2 = -(rel2 - 0.067) / 0.067
+print('a1 = {:.3}'.format(a1))
+print('a2 = {:.3}'.format(a2))
+
+
 
 
 
