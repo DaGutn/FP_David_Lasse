@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1627974107 "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex" "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.pdf" "Abgabe" 1627974107
+["pdflatex"] 1627995028 "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex" "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.pdf" "Abgabe" 1627995028
   "/dev/null" 1627732268 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/home/lasse/.local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/home/lasse/.local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -32,12 +32,12 @@
   "/home/lasse/.local/texlive/2019/texmf-dist/web2c/texmf.cnf" 1566248362 39543 a0bd1f17d0daea30a3905c0b020d0959 ""
   "/home/lasse/.local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1569226084 4268688 b55f3a4e5d25731bfdc1bf9ad94f987e ""
   "/home/lasse/.local/texlive/2019/texmf.cnf" 1569226034 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.aux" 1627974107 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.aux" 1627995028 8 a94a2480d3289e625eea47cd1b285758 ""
   "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex" 1627974106 580 c0c0d79e91270de086c3570b42d655b9 ""
-  "Abgabe.aux" 1627974107 8 a94a2480d3289e625eea47cd1b285758 ""
+  "Abgabe.aux" 1627995028 8 a94a2480d3289e625eea47cd1b285758 ""
   "Abgabe.tex" 1627974106 580 c0c0d79e91270de086c3570b42d655b9 ""
   "inputs/header.tex" 1627973053 2606 8d4eb675e61e1c7e53c47f4b02f7936a ""
   (generated)
+  "Abgabe.log"
   "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.log"
   "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.pdf"
-  "Abgabe.log"
