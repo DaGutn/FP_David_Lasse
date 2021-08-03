@@ -122,6 +122,10 @@ print(nullen_mean)
 print("Brechungsindex des vermessenen Glases")
 print(n_gl)
 
+a=(n_gl - 1.4570)/1.4570
+
+print(f"Abweichung zum Theoriewert: {a}")
+
 
 # Brechungsindex der Luft bestimmen
 
@@ -140,29 +144,29 @@ R = const.gas_constant
 n_gs = n_gas(nullen, lam, laenge, 1)
 
 x = np.linspace(0, 1.013)
-n_params, n_cov = scipy.optimize.curve_fit(linear, druck, noms(n_gs))
-errors = np.sqrt(np.diag(n_cov))
-print(errors)
-n_params_unc = unp.uarray(n_params, errors)
-print(n_params_unc)
-
-
-# In[44]:
-
-
-plt.plot(druck, noms(n_gs), "x")
-plt.xlabel("Druck [bar]")
-plt.ylabel("Brechungsindex")
-plt.plot(x, linear(x, *n_params))
-plt.savefig("druck_lin.pdf")
+#n_params, n_cov = scipy.optimize.curve_fit(linear, druck, noms(n_gs))
+#errors = np.sqrt(np.diag(n_cov))
+#print(errors)
+#n_params_unc = unp.uarray(n_params, errors)
+#print(n_params_unc)
+#
+#
+## In[44]:
+#
+#
+#plt.plot(druck, noms(n_gs), "x")
+#plt.xlabel("Druck [bar]")
+#plt.ylabel("Brechungsindex")
+#plt.plot(x, linear(x, *n_params))
+#plt.savefig("druck_lin.pdf")
 
 
 # In[46]:
 
 
-n_norm = n_gas_T(n_params_unc[0], n_params_unc[1], 1.013, 295.05, 288.15)
-print("Brechungsindex von Luft")
-print(n_norm)
+#n_norm = n_gas_T(n_params_unc[0], n_params_unc[1], 1.013, 295.05, 288.15)
+#print("Brechungsindex von Luft")
+#print(n_norm)
 
 
 ## Brechungsindex über letzten Wert messen: p=1006 mbar, Nulldurchgänge=42
@@ -186,7 +190,7 @@ print(n_norm)
 
 n_quad_params, n_cov = scipy.optimize.curve_fit(linear, druck, noms(n_gs)**2)
 errors = np.sqrt(np.diag(n_cov))
-print(errors)
+#print(errors)
 n_quad_params_unc = unp.uarray(n_quad_params, errors)
 print("Steigung des linearen Zusammenhangs n² gegen p")
 print(n_quad_params_unc[0])
@@ -204,5 +208,11 @@ plt.savefig("n_quad_fit.pdf")
 n_norm = unp.sqrt(1+ 1.013*295.05*n_quad_params_unc[0]/288.15)
 print("Brechungsindex von Luft bei Normalbedingungen")
 print(n_norm)
+
+n_norm_lit = 1.00027653
+
+a = (n_norm-1 - (n_norm_lit-1))/(n_norm_lit-1)
+print(f"Theoriewert: {n_norm_lit}")
+print(f"Abweichung zum Theoriewert: {a}")
 
 
