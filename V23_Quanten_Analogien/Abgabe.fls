@@ -1,11 +1,11 @@
-PWD /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt
+PWD /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien
 INPUT /home/lasse/.local/texlive/2019/texmf.cnf
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/web2c/texmf.cnf
 INPUT /home/lasse/.local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex
-OUTPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.log
-INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/inputs/header.tex
-INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/inputs/header.tex
+INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.tex
+OUTPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.log
+INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/inputs/header.tex
+INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/inputs/header.tex
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/koma-script/scrartcl.cls
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/koma-script/scrartcl.cls
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -48,8 +48,8 @@ INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/generic/oberdiek/uniquecoun
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/generic/oberdiek/uniquecounter.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/generic/oberdiek/bigintcalc.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/generic/oberdiek/bigintcalc.sty
-INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.aux
-INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.aux
+INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.aux
+INPUT /home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.aux
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/fontspec/fontspec.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/fontspec/fontspec.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/l3packages/xparse/xparse.sty

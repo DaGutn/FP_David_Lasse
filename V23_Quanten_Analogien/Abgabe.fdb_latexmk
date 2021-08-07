@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1627974107 "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex" "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.pdf" "Abgabe" 1627974107
-  "/dev/null" 1627732268 0 d41d8cd98f00b204e9800998ecf8427e ""
+["pdflatex"] 1628336644 "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.tex" "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.pdf" "Abgabe" 1628336644
+  "/dev/null" 1628274725 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/home/lasse/.local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/home/lasse/.local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
   "/home/lasse/.local/texlive/2019/texmf-dist/tex/generic/oberdiek/bigintcalc.sty" 1463608860 40505 00cd7d66904273677d96039436aaa328 ""
@@ -32,12 +32,12 @@
   "/home/lasse/.local/texlive/2019/texmf-dist/web2c/texmf.cnf" 1566248362 39543 a0bd1f17d0daea30a3905c0b020d0959 ""
   "/home/lasse/.local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1569226084 4268688 b55f3a4e5d25731bfdc1bf9ad94f987e ""
   "/home/lasse/.local/texlive/2019/texmf.cnf" 1569226034 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.aux" 1627974107 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.tex" 1627974106 580 c0c0d79e91270de086c3570b42d655b9 ""
-  "Abgabe.aux" 1627974107 8 a94a2480d3289e625eea47cd1b285758 ""
-  "Abgabe.tex" 1627974106 580 c0c0d79e91270de086c3570b42d655b9 ""
-  "inputs/header.tex" 1627973053 2606 8d4eb675e61e1c7e53c47f4b02f7936a ""
+  "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.aux" 1628336644 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.tex" 1628170898 582 ab8d887151b2d3d260f0cb9ed2a9c6c0 ""
+  "Abgabe.aux" 1628336644 8 a94a2480d3289e625eea47cd1b285758 ""
+  "Abgabe.tex" 1628170898 582 ab8d887151b2d3d260f0cb9ed2a9c6c0 ""
+  "inputs/header.tex" 1628161541 2630 51dec0a5a84850a6187e75eea48e65f0 ""
   (generated)
-  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.log"
-  "/home/lasse/Schreibtisch/FP_David_Lasse/V46_Faraday_Effekt/Abgabe.pdf"
   "Abgabe.log"
+  "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.log"
+  "/home/lasse/Schreibtisch/FP_David_Lasse/V23_Quanten_Analogien/Abgabe.pdf"
