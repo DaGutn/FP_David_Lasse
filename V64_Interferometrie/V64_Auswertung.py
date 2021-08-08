@@ -48,7 +48,7 @@ def glasnullen(n, dicke, lam, theta):
     return dicke/lam * ( (n - 1) * theta**2 /(2*n)) 
 
 def n_glas(dicke, lam, theta, theta_0, nullen):
-    return (1 - 2 * nullen * lam /(dicke * 3 * theta**2))**(-1)
+    return (1 - 2 * nullen * lam /(dicke * 4 * theta_0 * theta))**(-1)
 
 def n_gas(nullen, lam, laenge, n_0):
     return nullen * lam / laenge + n_0
@@ -211,7 +211,7 @@ print(n_norm)
 
 n_norm_lit = 1.00027653
 
-a = (n_norm-1 - (n_norm_lit-1))/(n_norm_lit-1)
+a = ((n_norm-1) - (n_norm_lit-1))/(n_norm_lit-1)
 print(f"Theoriewert: {n_norm_lit}")
 print(f"Abweichung zum Theoriewert: {a}")
 
