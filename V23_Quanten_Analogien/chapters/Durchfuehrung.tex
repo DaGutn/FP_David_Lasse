@@ -8,7 +8,12 @@
             Abbildung~\ref{fig:atom_Aufbau} zu sehen, entgegengesetzt ein Mikrofon und ein Lautsprecher. Die Schallwellen des Mikrofons bilden stehende Wellen innerhalb des Hohlraumresonators aus. Die 
             zugehörigen Druckamplituden werden vom Mikrofon vermessen. Zur Änderung der Symmetrieachse kann ein Zwischenring zwischen die beiden Halbkugeln gesetzt werden. Die beiden Halbkugeln können 
             zueinander verdreht werden, sodass der Winkel zwischen dem Mikrofon und dem Lautsprecher zwischen 0° und 180° angepasst werden kann. Für einen Winkel von 180° stehen sich Mikrofon und Lautsprecher
-            gegenüber. 
+            gegenüber. Es ist darauf zu achten, dass dieser Winkel nicht unbedingt dem tatsächlichen Polarwinkel $\theta$ entspricht. Wenn keine Zwischenringe in das Wasserstoffatom eingesetzt werden muss 
+            $\theta$ zunächst berechnet werden:
+            \begin{equation*}
+                \theta = \arccos\left[\frac{1}{2}\cos\left(\alpha\right) - \frac{1}{2}\right]
+            \end{equation*}
+            Wenn jedoch Zwischenringe eingesetzt sind steht die Symmetrieachse aufrecht im Hohlraumresonator und der gemessene Winkel entspricht $\theta$.
             \begin{figure}[h]
               \centering
               \includegraphics[width = 0.6\textwidth]{pictures/aufbau.png}
@@ -18,7 +23,7 @@
 
             \FloatBarrier
         \newpage
-        \subsubsection*{Wasserstoffatom}
+        \subsubsection*{Wasserstoffmolekül}
             Um das Wasserstoffmolekül zu simulieren werden nun zwei Kugelresonatoren aufeinandergesetzt. Sie sind durch eine Öffnung in den Kugeloberflächen verbunden. Die Größe dieser Öffnung kann durch 
             Blenden verschiedenen Durchmessers variiert werden. Das Mikrofon und der Lautsprecher befinden sich jeweils in einem der beiden Kugelresonatoren.
 
