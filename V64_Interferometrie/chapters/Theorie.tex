@@ -19,7 +19,7 @@
             \item Elliptisch pol. Licht: $\qquad$für jedes andere $\delta$
         \end{itemize}
         Das Interfenzmuster besteht also aus zwei einander überlagerten Interfenzmustern $\langle\left(\vec{E}_{1\bot} + \vec{E}_{2\bot}\right)^2\rangle_{\text{T}}$ und $\langle\left(\vec{E}_{1\parallel} + \vec{E}_{2\parallel}\right)^2\rangle_{\text{T}}$.
-        Damit sind die Fresnel-Arago-Gesetze, also die Bedingungen dafür dass polarisiertes Licht interferiert, anhand der vektoriellen Formel
+        Damit sind die Fresnel-Arago-Gesetze, also die Bedingungen dafür, dass polarisiertes Licht interferiert, anhand der vektoriellen Formel
         \begin{align}
             I &= \langle\left(\vec{E}_1 + \vec{E}_2\right)^2\rangle_{\text{T}} \nonumber\\
             &= \langle\vec{E}^2_1\rangle_{\text{T}} + \langle\vec{E}^2_2\rangle_{\text{T}} + 2\langle\vec{E}_1\vec{E}_2\rangle_{\text{T}} \cos(\delta) \\
@@ -39,7 +39,7 @@
             \mu = \frac{I_{\text{max}} - I_{\text{min}}}{I_{\text{max}} + I_{\text{min}}} = \frac{2\langle\vec{E}_1\vec{E}_2\rangle_{\text{T}}}{\langle\vec{E}^2_1\rangle_{\text{T}} + \langle\vec{E}^2_2\rangle_{\text{T}}}
             \label{eqn:kontrast}
         \end{equation}
-        Die Intensitäten $I_{\text{max}}$ und $I_{\text{min}}$ gehören dabei einem benachbarten Maximum und Minimum und lassen sich durch die folgende Formal bestimmen:
+        Die Intensitäten $I_{\text{max}}$ und $I_{\text{min}}$ gehören dabei einem benachbarten Maximum und Minimum und lassen sich durch die folgende Formel bestimmen:
         \begin{equation}
             I_{\text{max/min}} \propto I_{\text{Laser}} \left(1 \pm 2 \cos(\phi)\sin(\phi)\right)
             \label{eqn:intensität_max_min}
@@ -54,7 +54,7 @@
         \begin{equation*}
             E_1 = E \cos(\phi) \qquad \qquad E_2 = E \sin(\phi)
         \end{equation*}
-        mit der Amplitude direkt nach dem Polarisator, aber vor Durchqueren des \textit{Polarizing Beam Splitter Cube} (PBSC), $E$.
+        mit der Amplitude $E$ direkt nach dem Polarisator.
         Werden die $E_i$ und das $\delta$ jeweils für konstruktive bzw. destruktive Interferenz in \eqref{eqn:intensität} eingesetzt, ergibt sich \eqref{eqn:intensität_max_min}.
         Die Abhängigkeit des Kontrastes vom Polarisationswinkel wird wiederum durch Einsetzten von \eqref{eqn:intensität_max_min} in \eqref{eqn:kontrast} bestimmt:
         \begin{equation*}
@@ -65,22 +65,37 @@
     \subsection{Detektion des Interferenzsignals}
         Die Intensität der Lichtstrahlen wird mithilfe von Photodioden gemessen. Diese bestehen aus Halbleitermaterial, in welchem durch Photonen Elektronen aus dem Valenzband ins Leitungsband gehoben werden. Dieser Photostrom ist messbar und proportional zur Intensität des gemessenen Lichtes.
 
-        Die Differenzspannungsmethode wird verwendet indem ein zweiter um 45° geneigter PBSC in den Stahlengang gestellt wird und an beiden auf zwei Dioden fallenden austretenden Strahlen nun Interferenz beobachtet werden kann.
-        Die Differenz der Spannungssignale hat jeweil bei Interferenzmaxima und -minima Nulldurchläufe.
-        Diese Flanken sind so steil, dass sich die Maxima und Minima dadurch leicht auslesen lassen.
+        Die Differenzspannungsmethode wird verwendet indem ein zweiter um 45° geneigter PBSC in den Stahlengang gestellt wird und an beiden austretenden Strahlen nun Interferenz beobachtet werden kann.
+        Dies wird mit zwei Dioden vermessen.
+        Die Differenz der Spannungssignale hat bei den Interferenzmaxima und -minima jeweils steilere Extrema.
+        Ihre Flanken sind so steil, dass sich die Nulldurchgänge dadurch leichter auslesen lassen.
         Außerdem hilft die Differenzspannungsmethode dabei äußere Einflüsse zu minimieren.
 
     \subsection{Brechungsindizes}
         \subsubsection{Glasplatte}
             Die Anzahl der Interferenzmaxima bzw. -minima ist gegeben durch $M = \frac{\Delta \phi}{2 \pi}$. Eine planparallele Platte mit Brechungsindex $n$ erzeugt für kleine Drehwinkel $\theta$ bei Durchlassen von Licht eine Phasenverschiebung von
-            \begin{equation}
+            \begin{equation*}
                 \Delta \phi = \frac{2\pi}{\lambda_{\text{vac}}} T \left(\frac{n - 1}{2n} \theta^2 + \mathcal{O}\left(\theta^4\right)\right)
-                \label{eqn:phi_platte}
-            \end{equation}
+            \end{equation*}
             mit der Wellenlänge des Lichtes im Vakuum $\lambda_{\text{vac}}$ und der Dicke der Platte $T$. \cite{tu_dortmund_versuchsanleitung_2021-1}\\
-            Einsetzen von $\Delta \phi = 2\pi \cdot M$ in \eqref{eqn:phi_platte} ergibt die folgende Formel für den Brechungsindex:
+            Die Phasenverschiebung zwischen den beiden Strahlen nach Durchlaufen der beiden um $\theta_1$ und $\theta_2$ gedrehten Platten ist somit:
             \begin{equation}
-                n = \left(1 - 2\frac{M \lambda_{\text{vac}}}{T \theta^2}\right)^{-1}
+                \Delta \phi = \frac{2\pi T}{\lambda_{\text{vac}}} \cdot \frac{n - 1}{2n} \cdot |\theta^2_1 - \theta^2_1|
+                \label{eqn:phi_platte_1}
+            \end{equation}
+            Dabei gilt für die beiden Drehwinkel $\theta_1$ und $\theta_2$ mit dem anfänglichen Drehwinkel $\theta_0 = 10°$ und der Winkeldifferenz $\Delta \theta$:
+            \begin{align*}
+                \theta_1 &= \theta_0 + \Delta \theta \\
+                \theta_2 &= -\theta_0 + \Delta \theta
+            \end{align*}
+            Mit diesen Winkeln sieht \eqref{eqn:phi_platte_1} aus wie folgt:
+            \begin{equation}
+                \Delta \phi = \frac{2\pi T}{\lambda_{\text{vac}}} \cdot \frac{n - 1}{2n} \cdot 4 \theta_0 \Delta\theta
+                \label{eqn:phi_platte_2}
+            \end{equation}
+            Einsetzen von $\Delta \phi = 2\pi \cdot M$ in \eqref{eqn:phi_platte_2} und umstellen ergibt die folgende Formel für den Brechungsindex:
+            \begin{equation}
+                n = \left(1 - \frac{M \lambda_{\text{vac}}}{2 T \theta_0 \Delta\theta}\right)^{-1}
                 \label{eqn:n_platte}
             \end{equation}
 
