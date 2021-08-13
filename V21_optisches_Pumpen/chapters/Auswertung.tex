@@ -1,10 +1,16 @@
 \newpage
 \section{Auswertung}
     \subsection{Bestimmung des Kernspins}
-        Um den Kernspin bestimmen zu können nutzt man den linearen Zusammenhang zwischen der Energie der Zeemann-Aufspaltung und des angelegten horizontalen B-Feldes. Da die Energie der Zeemann-Aufspaltung 
-        in diesem Versuch proportional zur Frequenz des RF-Feldes ist, wird das angelegte B-Feld gegen diese aufgetragen. Dazu müssen zunächst über das Helmholtz-Gesetz (Referenz) aus den Spulenspannungen 
-        \ref{tab:daten} die zugehörigen B-Felder für die Horizontale- und Sweep-Spule berechnet und anschließend addiert werden (\ref{tab:daten}).  
-        
+        Um den Kernspin bestimmen zu können nutzt man den linearen Zusammenhang zwischen der Energie der Zeeman-Aufspaltung und des angelegten horizontalen B-Feldes. Da die Energie der Zeeman-Aufspaltung 
+        in diesem Versuch proportional zur Frequenz des RF-Feldes ist, wird das angelegte B-Feld gegen diese aufgetragen. Dazu müssen zunächst über die Formel zur Bestimmung der Magnetfeldstärke im Zentrum 
+        eines Helmholtz-Spulenpaars
+        \begin{equation}
+            B(0) = \frac{8\mu_0 N I }{\sqrt{125}R}
+            \label{eqn:b_helm}
+        \end{equation}
+        \noindent
+        aus den über die Spulenspannungen (siehe Tab.~\ref{tab:daten}) berechneten Stromstärken $I$, dem Radius der Spulen $R$, der magnetischen Feldkonstante $\mu_0$ und der Windungsanzahl $N$ die zugehörigen B-Felder 
+        für die Horizontale- und Sweep-Spule berechnet und anschließend addiert werden (siehe Tab.~\ref{tab:daten}).  
         
         \FloatBarrier
 
@@ -36,14 +42,14 @@
 
         \noindent
 
-        Um aus diesen Lande-Faktoren den Kernspin zu bestimmen, wird der Zusammenhang zwischen $\text{g}_{\text{F}}$ und $\text{g}_{\text{J}}$, in dem auch der Kernspin I enthalten ist (Referenz), nach 
+        Um aus diesen Lande-Faktoren den Kernspin zu bestimmen, wird der Zusammenhang zwischen $\text{g}_{\text{F}}$ und $\text{g}_{\text{J}}$ \ref{eqn:g_F}, in dem auch der Kernspin I enthalten ist, nach 
         eben diesem umgestellt:
         
         \begin{equation*}
             \text{I} = \left( \frac{\text{g}_{\text{J}}}{\text{g}_{\text{F}}} - 1 \right) \cdot \text{J}
         \end{equation*}
 
-        $\text{g}_{\text{J}}$ berechnet sich für Rubidium nach (Referenz) zu 2 und J ist mit $\frac{1}{2}$ gegeben, sodass sich folgende Kernspins berechnen lassen:
+        $\text{g}_{\text{J}}$ berechnet sich für Rubidium nach Formel~\ref{eqn:g_J} zu 2 und J ist mit $\frac{1}{2}$ gegeben, sodass sich folgende Kernspins berechnen lassen:
 
         \begin{equation*}
             \text{I}_{\text{${}^{85}$Rb}} = \num{2.449 +- 0.010} \qquad \text{I}_{\text{${}^{87}$Rb}} = \num{1.445 +- 0.011}
@@ -51,10 +57,11 @@
 
         
 
-    \subsection{Abschätzung des quadratischen Zeemann-Effekts}
-        Da der quadratische Zeemann-Effekt bei höheren Magnetfeldstärken auftritt, wird die Größe der zugehörigen Energieaufspaltung für die maximal angelegten Magnetfeldstärken berechnet. So ergeben sich mit 
-        den angebeben Hyperfeinstrukturaufspaltungen $\Delta\text{E}_{\text{HFS}, {}^{85}\text{Rb}} =  \SI{2.01 e-24}{\joule}$, $\Delta\text{E}_{\text{HFS}, {}^{87}\text{Rb}} = \SI{4.53 e-24}{\joule}$ und 
-        maximalen Magnetfeldstärken folgende Energieaufspaltungen:
+    \subsection{Abschätzung des quadratischen Zeeman-Effekts}
+        Da der quadratische Zeeman-Effekt bei höheren Magnetfeldstärken auftritt, wird die Größe der zugehörigen Energieaufspaltung für die maximal angelegten Magnetfeldstärken berechnet. So ergeben sich über
+        Formel referenz mit den angebeben Hyperfeinstrukturaufspaltungen 
+        $\Delta\text{E}_{\text{HFS}, {}^{85}\text{Rb}} =  \SI{2.01 e-24}{\joule}$, $\Delta\text{E}_{\text{HFS}, {}^{87}\text{Rb}} = \SI{4.53 e-24}{\joule}$ und maximalen Magnetfeldstärken folgende 
+        zusätzliche Energieaufspaltungen neben dem linearen Zeeman-Effekt:
 
         \begin{align*}
             \Delta\text{E}_{\text{QZ}, {}^{85}\text{Rb}} (\SI{246 +- 5}{\micro\tesla})= \SI{2.89\pm0.13 e-31}{\joule} \\
@@ -96,8 +103,8 @@
     
         \noindent
 
-        Die vertikale Komponente kann unter der Annahme, dass diese durch die vertikale Spule zu Beginn genau kompensiert wurde, direkt aus dem Magnetfeld der vertikalen Spule berechnet werden. Mit dem 
-        Helmholtz-Gesetz ergibt sich so folgende vertikale Magnetfeldstärke:
+        Die vertikale Komponente kann unter der Annahme, dass diese durch die vertikale Spule zu Beginn genau kompensiert wurde, direkt aus dem Magnetfeld der vertikalen Spule berechnet werden. Mit der Formel
+        der Magnetfeldstärke in Zentrum eines Helmholtz-Spulenpaars \ref{fig:Aufbau} ergibt sich so folgende vertikale Magnetfeldstärke:
 
         \begin{equation*}
             \text{B}_{\text{vert}} = \SI{34.63 +- 0.15}{\micro\tesla}
