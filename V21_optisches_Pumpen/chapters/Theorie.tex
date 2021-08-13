@@ -60,26 +60,27 @@
 
             Für $\ce{^{87}Rb}$ ergibt sich mit dem Kernspin von $I = \frac{3}{2}$ eine Aufspaltung die in \autoref{fig:Hyperfeinstruktur} zu sehen ist. Das $^2\text{S}_{\nicefrac{1}{2}}$-Niveau wird genauso aufgespalten, wie das $^2\text{P}_{\nicefrac{1}{2}}$-Niveau, da beide Energieniveaus $J = \frac{1}{2}$ besitzen.
 
-        \subsubsection*{Zeeman}
+        \subsubsection*{Zeeman-Effekt}
             Bei einem angelegten Magnetfeld $\vec{B}$ werden die Energieniveaus noch weiter aufgespalten.
             Wird der Kernspin vernachlässigt ist die Wechselwirkungsenergie mit dem Magnetfeld gegeben als,
-            \begin{equation*}
+            \begin{equation}
                 \Delta E_{\text{ZM,}J} = g_J \mu_0 m_J B
-            \end{equation*}
+                \label{eqn:zeeman_energy}
+            \end{equation}
             wobei $\mu_0$ das Bohrsche Magneton ist und $g_J$ der Lande-Faktor mit
             \begin{equation}
                 g_J = \frac{3J(J+1) + S(S+1) - L(L+1)}{2J(J+1)}
                 \label{eqn:g_J}
             \end{equation}
-            ist. Der Faktor kommt daher, dass bei der Bildung des magnetischen Moments des Spins der "anomale Spin-g-Faktor" $g_S = 2$ dazukommt.
+            ist. Der Faktor kommt daher, dass bei der Bildung des magnetischen Moments des Spins der \"anomale Spin-g-Faktor" $g_S = 2$ dazukommt.
 
             Das gesamte magnetische Moment des Gesamtdrehimpulses $\vec{J}$ ist:
             \begin{equation*}
-                \vec{\mu}_J = \vec{\mu}_L + \vec{\mu}_S = \frac{q}{2m_{\text{e}}} \left(g_L \vec{L} + g_S \vec{S}\right)
+                \vec{\mu}_J = \vec{\mu}_L + \vec{\mu}_S = \frac{q \hbar}{2m_{\text{e}}} \left(g_L \vec{L} + g_S \vec{S}\right)
             \end{equation*}
             $q$ ist dabei die Ladung und $m_\text{e}$ die Masse des Elektrons. $g_L = 1$ wird einfach nur zur Symmetrie dazugeschrieben. Da $g_L \neq g_S$ sind $\vec{J}$ und $\vec{\mu_J}$ nicht parallel und weil sich die senkrechte Komponente über die Zeit herausmittelt, wird die parallele Komponente $\mu_{\text{eff}}$ benutzt, um $g_J$ herzuleiten:
             \begin{equation*}
-                \mu_{\text{eff}} = \frac{(\vec{\mu} \cdot \vec{J})}{\vec{J}^2} \vec{J} = g_J \frac{q}{2m_{\text{e}}} \vec{J}
+                \mu_{\text{eff}} = \frac{(\vec{\mu} \cdot \vec{J})}{\vec{J}^2} \vec{J} = g_J \frac{q \hbar}{2m_{\text{e}}} \vec{J}
             \end{equation*}
             Nach $g_J$ umgeformt ergibt sich \eqref{eqn:g_J} mit den Eigenwerten $\vec{J}^2 = \hbar^2 J (J+1)$, $\vec{L}^2 = \hbar^2 L (L+1)$ und $\vec{S}^2 = \hbar^2 S (S+1)$.
 
@@ -92,6 +93,14 @@
                 g_F = g_J \frac{F(F+1) + J(F+1) - I(I+1)}{2F(F+1)}
                 \label{eqn:g_F}
             \end{equation}
+
+        \subsubsection*{Quadratischer Zeeman-Effekt}
+            Dieser Effekt ist nur bei starken Magnetfeldern nicht vernachlässigbar. Dabei wird auch in abgeschlossenen Schalen ein magnetisches Moment induziert, welches seinerseits mit dem Magnetfeld wechselwirkt.
+            \eqref{eqn:zeeman_energy} mit wird damit um den folgenden Term erweitert:
+            \begin{equation*}
+                \Delta E_{\text{QZM},F} = g_F^2 \mu_{\text{B}}^2 B^2 \frac{1-2m_F}{\Delta E_{\text{HF}}}
+            \end{equation*}
+            Das $\Delta E_{\text{HF}}$ bezeichnet die Energiedifferenz zwischen zwei Niveaus in der Hyperfeinaufspaltung.
 
     \subsection{Auswahlregeln und Emission}
         Das Licht welches Elektronen in höhere Energieniveaus angeregt bringt gewisse Auswahlregeln an die Übergänge mit sich. Diese Auswahlregeln gelten auch für die Emmission.\\
@@ -133,4 +142,4 @@
 
         Wird ein RF-Feld angelegt mit $E_{\text{RF}}$, erreicht das steigende Magnetfeld irgendwann den Punkt, an dem $\Delta E_{\text{ZM},F} = E_{\text{RF}}$ gilt. Ist diese Bedingung erfüllt, wird damit stimulierte Emission erzeugt und die optisch gepumpten Elektronen im höchsten $m_F$ -Zustand können auf tiefere Energieniveaus relaxieren. Somit gibt es mehr Elektronen, die in der Lage sind das Licht der Spektrallampe zu absorbieren und die Transmission hat einen Dip.
 
-        Aus der Bedingung $2 \cdot g_F \mu_B B = E_{\text{RF}}$ kann nach Umstellen der Kernspin leicht bestimmt werden.
+        Aus der Bedingung $g_F \mu_B B = E_{\text{RF}}$ kann nach Umstellen der Kernspin leicht bestimmt werden.
