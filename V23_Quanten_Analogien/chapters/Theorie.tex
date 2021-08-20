@@ -1,228 +1,160 @@
 \section{Theoretische Grundlagen}
-    \subsection{Bandstruktur von Festkörpern}
-        Zur Beschreibung der elektronischen Leiteigenschaften von Metallen wird meistens die Bandstruktur des Festkörpers genutzt. Diese stellt die Energiedispersion der Elektronen des Festkörpers dar, indem 
-        die Bindungsenergie des Elektrons gegen dessen Impuls aufgetragen wird. Für Elektronen aus der s-Schale, die wie freie Elektronen betrachtet werden können, ergibt sich eine quadratische Abhängigkeit 
-        der Energie vom Impuls und die Bänder sind parabolisch. Für stärker lokalisierte Elektronen, wie die aus der d-Schale, ergeben sich eher flache Bänder. Der Nutzen zur Charakterisierung von 
-        Leitungseigenschaften wird erreicht, wenn die Fermi-Energie des Festkörpers mit in das Bandschema eingezeichnet wird, da das Verhalten der Bänder um die Fermi-Energie über die Leitfähigkeit
-        entscheidet. Beim absoluten Nullpunkt der Temperatur sind alle Zustände über der Fermi-Energie unbesetzt und alle darunter besetzt. Sodass immer zwischen dem letzten vollständig besetzten Band, dem 
-        Valenzband, und dem nächsthöheren, dem Leitungsband, unterschieden wird. Wenn die Fermi-Energie innerhalb des Leitungsbandes liegt, handelt es sich um ein Metall. Wenn die Fermi-Energie zwischen dem 
-        Valenz- und Leitungsband liegt, entscheidet die Größe der Lücke über die Einordnung des Festkörpers. Liegt die Bandlücke in der Größenordnung einer Elektronenvolt handelt es sich um einen Halbleiter
-        und wenn die Bandlücke größer ist um einen Isolator. Für Temperaturen über dem absoluten Nullpunkt kann nicht mehr so klar zwischen besetzten und unbesetzten Zuständen unterschieden werden, da die 
-        Fermi-Dirac-Verteilung beginnt auszuschmieren und nun auch Zustände über der Fermi-Energie besetzt sein können. 
-
-        \FloatBarrier
-
-        \begin{figure}[h]
-          \centering
-          \includegraphics[width = 0.6\textwidth]{pictures/bandlücke.png}
-          \caption{In der Abbildung sind die drei Unterscheidungen zur Kategorisierung von Festkörpern bezüglich ihrer Leitungsfähigkeit schematisch dargestellt. Entnommen aus \cite{demtroder_atome_2016}}
-          \label{fig:Bandlücken}
-        \end{figure}
-
-        \FloatBarrier
-
-    \subsection{Effektive Masse von Elektronen in Festkörpern}
-        Zur Beschreibung von Teilchen ist es am besten, wenn diese möglichst frei sind, da dies einfache Bewegungsgleichungen mit sich zieht. Für Elektronen in Festkörpern ist dies leider nicht der Fall, weil
-        sie durch das sie umgebende Kristallfeld ein Potential spüren, das abhängig von der Position im Gitter ist. Dies führt dazu, dass sie beim Wirken eines äußeren Feldes und der resultierenden Bewegung
-        auch immer eine Potentialänderung erfahren. Um dennoch die grundlegenden Formeln bewegter Ladungen nutzen zu können, wird eine effektive Masse eingeführt, die die Potentialänderung bei Bewegung des
-        Elektrons im Gitter berücksichtigt. Zur Einführung wird zunächst die Beschleunigung eines Elektrons im Festkörper als Ableitung der Gruppengeschwindigkeit nach der Zeit definiert
-        
+    \subsection{Allgemeines}
+        Schallwellen sind longitudinale Schwingungen von Teilchen in einem Medium und sie können mithilfe der sogenannten Helmholtzgleichung mathematisch beschrieben werden:
         \begin{equation*}
-            \vec{\text{a}} = \frac{\text{dv}_{\text{g}}}{\text{dt}} = \frac{1}{\hbar} \cdot \left(\frac{\text{d}^2\text{E}}{\text{dk}^2}\right) \cdot \frac{\text{d}\vec{\text{k}}}{\text{dt}}
-            \label{eqn:beschleunigung}
+            \Delta P(\vec{r},t) = \frac{1}{c^2} \frac{\partial^2 P(\vec{r},t)}{\partial t^2}
         \end{equation*}
-        
-        die porportional zur doppelten Ableitung der Energiedispersion nach dem Impuls und der Ableitung des Impulses nach der Zeit ist. Um die gewünschte Beschreibung des Kirstallelektrons als freies Elektron
-        zu erreichen wird die Definition der Bewegungsgleichung nach der Ableitung des Impulses nach der Zeit umgestellt
+        $P(\vec{r},t)$ beschreibt hierbei die Verteilung der Druckamplitude und $c$ ist die Ausbreitungsgeschindigkeit/Gruppengeschwindgkeit der Welle.
+        Nach dem Abseparieren der Zeitabhängigkeit nach $P(\vec{r},t) = p(\vec{r}) \cdot \cos(\omega t)$ ergibt sich eine stationäre Differentialgleichung für den Druck.
+        \begin{equation}
+            \Delta p(\vec{r}) = \frac{\omega^2}{c^2} p(\vec{r})
+            \label{eqn:helmholtz}
+        \end{equation}
 
+        Analog wird die Wellenfunktion, deren Betragsquadrat die Wahrscheinlichkeitsdichte eines Elektrons ist, in einem zeitunabhängigen Potential $V(\vec{r})$ mithilfe der Schrödingergleichung
         \begin{equation*}
-            \vec{\text{F}} = \frac{\text{d}\vec{\text{p}}}{\text{dt}} = \hbar \frac{\text{d}\vec{\text{k}}}{\text{dt}} \qquad \longrightarrow \qquad  \frac{\text{d}\vec{\text{k}}}{\text{dt}} = \frac{\vec{\text{F}}}{\hbar}
-            \label{eqn:F_freiesElektron}
+            -\frac{\hbar^2}{2m} \Delta \Psi(\vec{r},t) + V(\vec{r}) \Psi(\vec{r},t) = i\hbar \frac{\partial}{\partial t} \Psi(\vec{r},t)
         \end{equation*}
+        bestimmt. Auch hier wird die Zeitabhängigkeit über $\Psi(\vec{r},t) = \psi(\vec{r}) \cdot e^{-i \omega t}$ abgekoppelt, was wiederum zur stationären Schrödingergleichung führt:
+        \begin{equation}
+            -\frac{\hbar^2}{2m} \Delta \psi(\vec{r}) + V(\vec{r}) \psi(\vec{r}) = E \psi(\vec{r})
+            \label{eqn:schrödinger}
+        \end{equation}
 
-        und in \ref{eqn:beschleunigung} eingesetzt
-
+        Das Analogon zum Potential, in welchem sich das Elektron befindet, ist das Einschließen des Gases in einem Volumen $V$.
+        Dabei gelten die Von-Neuman-Randbedingungen
         \begin{equation*}
-            \vec{\text{a}}  = \frac{1}{\hbar^2} \cdot \left(\frac{\text{d}^2\text{E}}{\text{dk}^2}\right) \cdot \vec{\text{F}}
+            \vec{\nabla} P(\vec{r},t) |_{\partial V} = 0
         \end{equation*}
+        an den Grenzen des Volumens. \\
+        Die dabei unter unter konstruktiver Interferenz der einfallenden und der am Rand des Volumens reflektierten Welle entstehenden stehenden Wellen können als das Analogon zu Wellenfunktionen von bestimmten quantenmechanischen Systemen benutzt werden.
 
-        sodass letztendlich die Bewegungsgleichung eines freien Elektrons unter Zuhilfenahme der effektiven Masse, die der inversen Krümmung der Dispersionsrelation entspricht, erreicht wird:
-
-        \begin{equation*}
-            \vec{\text{a}} = \frac{\text{1}}{\text{m*}} \cdot \vec{\text{F}} \qquad \text{mit} \qquad \text{m*} = \hbar^2 \cdot \left(\frac{\text{d}^2\text{E}}{\text{dk}^2}\right)^{-1}
-            \label{eqn:eff_masse}
-        \end{equation*}
-
-
-    \subsection{Dotierung von Halbleitern}
-        Um die Leitfähigkeit von elementaren Halbleitern zu steigern, können sie dotiert werden. Bei diesem Prozess werden Fremdatome in sehr geringen Konzentration von $10^{-4}$ bis $10^{-8}$ in die Struktur
-        des Elemtarhalbleiters eingefügt. Meist handelt es sich bei dem elementaren Halbleiter um ein 4-wertiges Atom, dass also mit 4 Elektronen anderer Atomen eine Bindung eingehen kann. 
-        
-            \subsubsection*{n-Dotierung}
-             Sind die neu hinzugefügten Atome 5-wertig, führt dies dazu, dass ein Elektron des hinzugefügten Atoms nur sehr schwach gebunden ist und als Leitungselektron fungieren kann. Da so ein annähernd 
-             freies Elektron hinzugeüft wird, heißen die 5-wertigen Störatome Donatoren und die dotierten Halbleiter n-dotiert. Die neuen Elektronen befinden sich in einem sogenannten Donatorzustand, der nahe 
-             dem Leitungsband, aber unter der Fermi-Energie liegt, sodass sie auch durch geringe äoßere Energieeinwirkungen in das Leitungsband angehoben werden können.
-            
-             \FloatBarrier
-
-             \begin{figure}[h]
-                \centering
-                \includegraphics[width = 0.6\textwidth]{pictures/donator.png}
-                \caption{Das zusätzliche freie Elektron befindet sich in einem Donatorzustand knapp unter der Fermi-Energie und nahe dem Leitungsband. Entnommen aus \cite{demtroder_atome_2016}}
-                \label{fig:Donator}
-             \end{figure}
-     
-             \FloatBarrier
-
-
-
-            \subsubsection*{p-Dotierung}
-            Werden stattdessen 3-wertige Atome eingebaut, fehlt ein Elektron zum eingehen der Bindung mit den elementaren Atomen. Dies erschafft einen Akzeptorzustand, der nahe dem Valenzband und über der 
-            Fermi-Energie liegt. Dies ermöglicht Elektronen aus dem Leitungsband unter geringer Energieeinwirkungen über die Fermi-Energie gehoben zu werden und dabei zu leiten. Diese Art von Halbleitern wird 
-            p-dotiert genannt.
-
-            \FloatBarrier
+    \subsection{Unendlicher Potentialtopf}
+        \subsubsection*{Potentialtopf}
+            Der eindimensionale unendliche Potentialtopf mit dem Potential
+            \begin{equation*}
+                V(x) =
+                \begin{cases}
+                    0,      & 0\leq x \leq L \\
+                    \infty, & \text{sonst}
+                \end{cases}
+            \end{equation*}
+            wird mit der stationären Schrödingergleichung
+            \begin{equation*}
+                \frac{\partial^2}{\partial x^2} \psi(x) + V(x) \psi(x) = E \psi(x)
+            \end{equation*}
+            und den Randbedingungen
+            \begin{equation*}
+                \psi(0) = \psi(L) = 0
+            \end{equation*}
+            gelöst. Es ergibt sich eine ebene Welle,
+            \begin{equation*}
+                \psi(x) = A \sin(kx)
+            \end{equation*}
+            deren Extrema sich im Laufe der Zeit nicht verschieben (stehende Welle) mit der Kreiswellenzahl:
+            \begin{equation}
+                k = \frac{\pi n}{L} \qquad \text{mit} \qquad n \in \mathbb{N}
+                \label{eqn:kPotentialtopf}
+            \end{equation}
 
             \begin{figure}[h]
                 \centering
-                \includegraphics[width = 0.6\textwidth]{pictures/akzeptor.png}
-                \caption{Durch das zur Bindung fehlende Elektron entsteht ein Akzeptorzustand nahe des Valenzbands und über der Fermi-Energie. Entnommen aus \cite{demtroder_atome_2016}}
-                \label{fig:Akzeptor}
+                \includegraphics[scale=0.6]{pictures/Potentialtopf.png}
+                \caption{Hier wird beispielhaft die Lösung der Schrödingergleichung für einen unendlichen Potentialtopf $\psi(x)$ mit $n=1$ dargestellt. Entnommen aus \cite{httpsapphysikuni-konstanzdeap-publicanleitungenquantenmodelle-teil1pdf_quantenmodelle-teil1pdf_nodate}.}
+                \label{fig:Potentialtopf}
             \end{figure}
-    
+
             \FloatBarrier
 
+        \subsubsection*{Rohrresonator und Analogon}
+            Hierbei wird an einem Ende eines Rohres ein Lautsprecher und am anderen Ende ein Mikrofon angebracht. Es wird von Resonanz gesprochen, wenn eine stehende Welle durch konstruktive Überlagerung der vom Lautsprecher einfallenden und der reflektierten Schallwelle ensteht. Dabei muss die Länge des Rohres ein ganzzahliges Vielfaches der halben Wellenlänge der Schallwelle sein:
+            \begin{equation*}
+                L = \frac{\lambda}{2} n
+            \end{equation*}
+            Mit der Definition der Kreiswellenzahl $k = \frac{2\pi}{\lambda}$ ergibt sich die gleiche Bedingung wie für den unendlichen Potentialtopf in \eqref{eqn:kPotentialtopf}:
+            \begin{equation*}
+                k = \frac{\pi n}{L} \qquad \text{mit} \qquad n \in \mathbb{N}
+            \end{equation*}
 
-    \subsection{Zirkulare Doppelbrechung}
-        Die zirkulare Doppelbrechung beschreibt die Drehung der Polarisationsebene von linear polarisertem Licht, wenn dieses ein optisch aktives Medium durchläuft. Zur Erklärung des Phänomens wird das linear 
-        polariserte Licht in einen links-zirkulär und einen rechts zirkulär polarisierten Anteil aufgeteilt. Sobald dieses Licht in das optisch aktive Medium eintritt, erzeugt es eine Polarisation
-        innerhalb des Materials
+            \begin{figure}[h]
+                \centering
+                \includegraphics[scale=0.6]{pictures/Rohrresonator.png}
+                \caption{Hier wird beispielhaft die Druckamplitude eines Rohrresonators $p(x)$ mit $n=1$ dargestellt. Entnommen aus \cite{httpsapphysikuni-konstanzdeap-publicanleitungenquantenmodelle-teil1pdf_quantenmodelle-teil1pdf_nodate}.}
+                \label{fig:Rohrresonator}
+            \end{figure}
 
-        \begin{equation}
-            \vec{\text{P}} = \varepsilon_0 \cdot \underline{\underline{\chi}} \cdot \vec{\text{E}} 
-            \label{eqn:polarisation}
-        \end{equation}
+            \FloatBarrier
 
-        die von der Richtung des elektrischen Feldes des Lichts und des Suszeptibilität-Tensors $\underline{\underline{\chi}}$ des Materials abhängt. Dieser Tensor reduziert sich für isotope Medien zunächst
-        auf ein Skalar. Bei nicht-isotropen Medien hingegen ergibt sich für $\underline{\underline{\chi}}$ eine Tensor 3. Stufe ergibt. Für diesen müssen zwei Fälle unterschieden werden. Wenn der Tensor 
-        symmetrisch ist und alle Nebenachsenelemente durch Diagonalisieren eliminiert werden können, tritt kein Faraday-Effekt auf. Wenn der Tensor jedoch nicht verschwindende Nebenachsenelemente besitzt
-        
-        \begin{equation*}
-            \underline{\underline{\chi}} =
-            \begin{pmatrix}
-                \chi_{\text{xx}} & \text{i} \chi_{\text{xy}} & 0 \\
-                -\text{i}\chi_{\text{xy}} & \chi_{\text{xx}} & 0 \\
-                0 & 0 & \chi_{\text{zz}}
-            \end{pmatrix}
-            \label{eqn:suszeptibilität1}
-        \end{equation*}
+            Der einzige Unterschied zwischen der Druckverteilung $p(x)$ und der Wellenfunktion $\psi(x)$ liegt in der Position der Knoten und Bäuche, aufgrund der verschiedenen Randbedingungen, wie es in \autoref{fig:Potentialtopf} und \autoref{fig:Rohrresonator} zu erkennen ist.
+            
+    \subsection{Wasserstoffatom und Analogon}
+        \subsubsection*{Wasserstoffatom}
+            Die Wellenfunktion für das Wasserstoffatom wird auch mit der stationären Schrödingergleichung \eqref{eqn:schrödinger} bestimmt. Wegen der Kugelsymmetrie des Coulombpotentials des Kerns $V(r) = -\frac{e^2}{4 \pi \epsilon_0 r}$ werden Kugelkoordinaten verwendet und der Laplace-Operator muss dementsprechend umgeschrieben werden.
 
-        lässt sich der Effekt der zirkularen Doppelbrechung erklären. Dazu wird das dielektrische Verschiebungsfeld $\vec{\text{D}} = \varepsilon_0 \cdot \vec{\text{E}} + \vec{\text{P}}$, welches für elektrische Felder
-        innerhalb von Medien gilt, mit der nicht symmetrischen Suszeptibilität \ref{eqn:suszeptibilität1} in die Wellengleichung von Licht eingesetzt
+            Der Seperationsansatz $\psi(r,\varphi,\theta) = Y^m_l(\varphi,\theta) \cdot R_{n,l}(r)$ trennt die Schrödingergleichung in zwei einzelne Differentialgleichung. Der winkelabhängige Teil
+            \begin{equation*}
+                -\left[\frac{1}{\sin \theta} \, \frac{\partial}{\partial \theta} \left(\sin \theta \, \frac{\partial}{\partial \theta}\right) + \frac{1}{\sin^2 \theta} \, \frac{\partial^2}{\partial \phi^2}\right] Y^m_l(\varphi,\theta) = l(l+1) \, Y^m_l(\varphi,\theta)
+            \end{equation*}
+            wird durch die Kugelflächenfunktionen mit den zugehörigen Legendre-Polynomen $P_{lm}$ gelöst:
+            \begin{equation}
+                Y^m_l(\varphi,\theta) = \frac{1}{\sqrt{2\pi}} \; \sqrt{\frac{2l+1}{2} \; \frac{(l-m)!}{(l+m)!}} \; P_{lm}\left(\cos \theta\right) e^{i m \varphi}
+            \end{equation}
+            Der radiale Teil kann im Kugelresonator nicht realisiert werden, weshalb er in diesem Versuch nicht betrachtet wird.
 
-        \begin{equation*}
-            \vec{\nabla} \times \left(\vec{\nabla} \times \vec{\text{E}}\right) = - \frac{1}{\text{c}^2} \cdot \left(1 + \underline{\underline{\chi}}\right) \cdot \frac{\partial^2\vec{\text{E}}}{\partial\text{t}^2}
-        \end{equation*}
+            Die auftretenden Quantenzahlen $n$, $l$ und $m$ sind der Reihenfolge nach die Hauptquantenzahl, die Drehimpulsquantenzahl und die magnetische Quantenzahl. Ihnen erliegen die folgenden Bedingungen auf:
+            \begin{align*}
+                n &= 1, \, 2, \, \ldots  \\
+                l &= 0, \, 1, \, \ldots, \, n-1 \\
+                m &= -l, \, -l+1, \, \ldots, \, l-1, \, l
+            \end{align*}
+            $n$ geht in die Energieeigenwerte $E = -\frac{E_{\text{ryd}}}{n^2}$ ein. Die Spin-Bahn-Kopplung hebt die Entartung der Energieniveaus teilweise auf, sodass aus jedem $n$-Energieniveau $n$ weitere Energieniveaus entstehen. Die Entartung in $m$ wird aufgehoben, indem ein äußeres Magnetfeld angelegt wird.
 
-        in der die zeitliche Ableitung der Polarisation vernachlässigt wird, da das Material für gewöhnlich eine geringe Leitfähigkeit besitzt. Mit der Annahme einer sich in z-Richtung ausbreitenden 
-        elektrischen Schwingung lässt sich die Wellengleichung nach Einsetzen der Suszeptibilität und des elektrischen Feldes in z-Richtung in die x-, y- und z-Komponente aufspalten. Die Gleichung für die 
-        z-Komponente
+        \subsubsection*{Kugelresonator}
+            Die Druckamplitude eines Gases in einem Kugelresonators wird mit der Helmholtzgleichung \eqref{eqn:helmholtz} bestimmt.
+            Auch hier bietet es sich an Kugelkoordinaten zu benutzen.
+            Die Differentialgleichung kann wieder mithilfe eines Seperationsansatzes in einen winkelabhängigen und einen radialen Anteil $p(r,\varphi,\theta) = Y^m_l(\varphi,\theta) \cdot F_{n,l}(r)$ zerlegt werden, wobei die Kugelflächenfunktionen den winkelabhängigen Teil lösen.
 
-        \begin{equation*}
-            \frac{\omega^2}{\text{c}^2} \cdot \text{E}_{\text{z}} = \frac{\omega^2}{\text{c}^2} \chi_{\text{zz}} \cdot \text{E}_{\text{z}}    
-        \end{equation*}
+            Der einzige Unterschied zwischen der Helmholtzgleichung und der Schrödingergleichung ist in diesem Fall das Coulombpotential, welches nicht durch ein Analogon realisiert werden kann.
+            Da dieses Potential jedoch nur von $r$ abhängt, hat es nur auf den radialen Teil der Differentialgleichung Einfluss, welcher in diesem Versuch nicht beobachtet wird.
 
-        zeigt, dass in dem gegebenen Fall die z-Komponente des elektischen Feldes verschwinden muss und die Welle sich somit transversal in z-Richtung ausbreitet. Die x- und y-Komponente ergeben ein 
-        Gleichungssystem, das nur dann eine nicht-triviale Lösung besitzt, wenn die Determinante
+            Da die Symmetrieachse der durch den Lautsprecher erzeugten stehenden Schallwelle nicht mit der Symmetrieachse der zu drehenden Halbkugel des Resonators übereinstimmt, wird die richtige Ausrichtung mit einer Symmetriebrechung in Form eines Zwischenringes bewirkt.
+            Das quantenmechanische Analogon dazu wäre ein angelegtes Magnetfeld, welches durch Wechselwirkung mit dem Drehimpuls diesen parallel zum Magnetfeld ausrichtet und die Entartung in $m$ aufhebt.
 
-        \begin{equation*}
-            \left(-k^2 + \frac{\omega^2}{\text{c}^2} \cdot \left(1 + \chi_{\text{xx}}\right)\right)^2 - \left(\text{i} \cdot \frac{\omega^2}{\text{c}^2} \chi_{\text{xy}} \right)^2 = 0
-        \end{equation*}
+    \subsection{Wasserstofmolekül und Analogon}
+        \subsubsection*{Wasserstoffmolekül}
+            Das $\text{H}^+_2$-Molekül besteht aus einem Elektron welches von den Coulombpotentialen zweier Kerne beeinflusst wird.
+            In erster Näherung kann der bindende und antibindende Zustand des Elektrons durch die Überlagerung der Wellenfunktionen der beiden Kerne, wenn jeweils der andere Kern nicht existieren würde, erklärt werden.
+            Die beiden Wellenfuktionen $\psi_1$ und $\psi_2$ besitzen zwei Möglichkeiten wie sie zueinander stehen können, symmetrisch oder antisymmetrisch:
+            \begin{align*}
+                \psi_+ = N_+ [\psi_1 + \psi_2] \\
+                \psi_- = N_+ [\psi_1 - \psi_2]
+            \end{align*}
+            Im ersten Fall erhöht sich die Aufenthaltswahrscheinlichkeit zwischen den beiden Kernen, weshalb er bindend genannt wird.
+            Im zweiten Fall heben sich die beiden Wellenfunktionen genau in der Mitte sogar komplett weg, weshalb die Wahrscheinlichkeit, dass sich dort das Elektron befindet gering ist.
 
-        verschwindet. Dies ist für zwei Wellenzahlen gegeben, die über die lineare Dispersionsrelation zwei mögliche Phasengeschwindigkeiten ergeben
+        \subsubsection*{Kugelresonatoren mit Blende}
+            Klassisch wird ein Wasserstoffmolekül mit zwei Kugelresonatoren, die über eine Blende miteinander verbunden sind, umgesetzt.
+            Die Blendenweite steht dabei stellvertretend für den Abstand zwischen den beiden Kernen.
+            Schwingen die stehenden Schallwellen in beiden Kugelresonatoren in Phase, so ist das Äquivalent der bindende Zustand.
+            Schwingen die stehenden Schallwellen gegenphasig, so ist das Äquivalent der antibindende Zustand.
+            
 
-        \begin{equation*}
-            \text{v}_{\text{Ph}_{\text{R}}} = \frac{\text{c}}{\sqrt{1 + \chi_{\text{xx}} + \chi_{\text{xy}}}} \qquad \text{v}_{\text{Ph}_{\text{L}}} = \frac{\text{c}}{\sqrt{1 + \chi_{\text{xx}} - \chi_{\text{xy}}}}
-            \label{eqn:Phasengeschwindigkeiten}
-        \end{equation*}
+    \subsection{1-dim. Festkörper und Analogon}
+        \subsubsection*{1-dim. Festkörper}
+            Die Elektronen in einem 1-dim. Festkörper können als freie Elektronen betrachtet werden mit der Energie:
+            \begin{equation*}
+                E = \frac{\hbar^2 k^2}{2m}
+            \end{equation*}
+            Diese freien Elektronen werden an den periodisch angeordneten Kernen des Festkörpes gestreut, wobei die Wellenzahl $k$ die Bragg-Bedingung erfüllen muss:
+            \begin{equation*}
+                n \lambda = 2d \qquad \implies \qquad k = \frac{\pi n}{d} \qquad \text{mit} \quad n=1, \, 2, \, \ldots
+            \end{equation*}
+            $d$ ist der Abstand der Kerne.
 
-        welche entweder für links- oder rechts-polarisertes Licht gelten. Aufgrund der unterschiedlichen Phasengeschwindigkeiten kommt es zur Drehung der Polarisation um den Winkel $\theta$
+            Da aufgrund der Bragg-Bedingung nur Elektronen mit bestimmten Werten für $k$ besonders stark gestreut werden und die Elektronen mit anderen $k$ nicht wirklich gestreut werden, also lokalisiert sind, entstehen sogenannte Bandlücken zwischen dem Valenzband und dem Leitungsband in der Dispersionsrelation.
 
-        \begin{equation*}
-            \theta = \frac{\text{L}\omega}{2} \cdot \left(\frac{1}{ \text{v}_{\text{Ph}_{\text{R}}}} - \frac{1}{ \text{v}_{\text{Ph}_{\text{L}}}}\right)
-        \end{equation*}
+        \subsubsection*{Kette von Rohrresonatoren}
+            Das klassische Äquivalent zum 1-dim. Festkörper kann als Aneinanderreihung von Rohrresonatoren mit Blenden dazwischen realisiert werden.
+            Das kommt daher, dass der 1-dim. Festkörper als eine Kette von endlichen Potentialtöpfen die ähnlich zum Wasserstoffmolekül durch Blenden miteinander verbunden sind.
 
-        die neben den Phasengeschwindigkeiten auch von der Länge des zurückgelegten Weges innerhalb des Mediums und der Frequenz des Lichts abhängt. Unter Zuhilfenahme einer Reihgenentwicklung bis zum linearen
-        Term lässt sich der Rotationswinkel auch direkt von einer Suszeptibilitätskomponente ausdrücken.
-
-        \begin{equation}
-            \theta \approx \frac{\text{L}\omega}{2\text{cn}} \cdot \chi_{\text{xy}}
-            \label{eqn:drehwinkel_näherung}
-        \end{equation}
-
-
-    \subsection{Faraday-Effekt}
-        Der Faraday-Effekt beschreibt das Auftreten von zirkulare Doppelbrechung auch bei isotropen Medien, wenn ein äußeres Magnetfeld angelegt wird. Dies geschieht in Form der Rotation der Polarisationsebene
-        des Lichts, das parallel oder anti-parallel zum magnetischen Feld verläuft. Zur Erklärung des Effekts muss zunächst die Bewegungsgleichung eines gebundenen Elektrons im  Einfluss äußerer Felder
-        aufgestellt werden
-
-        \begin{equation*}
-            m \cdot \frac{\text{d}^2\vec{\text{r}}}{\text{dt}^2} + \text{K} \cdot \vec{\text{r}} = -\text{e} \cdot \vec{\text{E}}\text{(r)} - \text{e} \cdot \frac{\text{d}\vec{\text{r}}}{\text{dt}} \times \vec{\text{B}} \qquad \text{mit} \qquad \text{E(t)} \propto e^{-\text{i} \omega \text{t}}
-        \end{equation*}
-
-        wobei $\vec{\text{B}}$ das äußere B-Feld und $\vec{\text{E}}\text{(r)}$ das elektrische Feld des einfallenden Lichts beschreibt. Nach Ausrechnen der zeitlichen Ableitungen, Ersetzen des Ortsvektors
-        $\vec{\text{r}}$ durch die Verschiebungspolarisation $\vec{\text{P}} = - \text{Ne} \vec{\text{r}}$ und Annahme eines Magnetfelds in z-Richtung ergeben sich die drei Komponenten der Bewegungsgleichungen.
-
-        \begin{align*}
-            \left(-\text{m}\omega^2 + \text{K}\right) \cdot \text{P}_{\text{x}} =& \text{Ne}^2 \cdot \text{E}_{\text{x}} + \text{ie} \omega \text{P}_{\text{y}} \text{B} \\
-            \left(-\text{m}\omega^2 + \text{K}\right) \cdot \text{P}_{\text{y}} =& \text{Ne}^2 \cdot \text{E}_{\text{y}} - \text{ie} \omega \text{P}_{\text{y}} \text{B} \\
-            \left(-\text{m}\omega^2 + \text{K}\right) \cdot \text{P}_{\text{z}} =& \text{Ne}^2 \cdot \text{E}_{\text{z}}
-        \end{align*}
-
-        Um den Drehwinkel zu bestimmen muss eine Komponente des Suszeptibilitättensors eingefügt werden, sodass die Polarisation über die, bereits im vorherigen Abschnitt definierte \ref{eqn:polarisation}, mit
-        folgendem Ansatz 
-
-        \begin{equation*}
-            \underline{\underline{\chi}} =
-            \begin{pmatrix}
-                \chi_{\text{xx}} & \text{i} \chi_{\text{xy}} & 0 \\
-                -\text{i}\chi_{\text{xy}} & \chi_{\text{xx}} & 0 \\
-                0 & 0 & \chi_{\text{zz}}
-            \end{pmatrix}
-            \label{eqn:suszeptibilität2}
-        \end{equation*}
-
-        für die Suszeptibilität ersetzt wird. Aus dem Gleichungssystem der 3 Komponenten geht hervor, dass die Suszeptibilität die selbe Form wie im Abschnitt zur zirkularen Doppelbrechung hat und somit auch 
-        isotrope Medien bei Anlegen eines externen Magnetfelds doppelbrechend werden. Zudem lässt sich aus den Gleichungen ein Ausruck für die Komponente $\chi_{\text{xy}}$ finden, die eingesetzt in 
-        \ref{eqn:drehwinkel_näherung} den Drehwinkel bestimmbar macht. Die zugehörige Gleichung
-
-        \begin{equation*}
-            \theta = \frac{\text{e}^3}{2\varepsilon_0\text{cm}^2} \cdot \frac{\omega^2}{\left(-\omega^2 + \frac{\text{K}}{\text{m}}\right)^2 - \left(\frac{\text{e}}{\text{m}} \cdot \text{B} \omega\right)^2} \cdot \frac{\text{NBL}}{\text{n}}
-        \end{equation*}
-
-        beinhaltet unter anderem den Term $\sqrt{\frac{\text{K}}{\text{m}}}$, der der Resonanzfrequenz $\omega_0$ der Elektronen im Medium entspricht und den Term $\frac{Be}{m}$, der der Zyklotronfrequenz 
-        $\omega_{\text{c}}$ der Elektronen entspricht. N steht für die Dichte der Elektronen. Mit den Annahmen
-        
-        \begin{equation*}
-            \left(\omega_0 - \omega\right)^2 >> \omega^2 \omega_{\text{C}}^2 \qquad \text{und} \qquad \omega << \omega_0
-        \end{equation*}
-
-        vereinfacht sich die Formel weiter und lässt sich durch die Wellenlänge des Lichts ausdrücken
-
-        \begin{equation*}
-            \theta(\lambda) \approx \frac{2\pi^2\text{e}^3\text{c}}{\varepsilon_0 \text{m}^2 \lambda^2 \omega_0^4} \cdot \frac{\text{NBL}}{\text{n}}
-        \end{equation*}
-
-        Für freie Elektronen verschwindet die rücktreibende Kraft und die Resonanzfrequenz geht gegen null. Dies führt zu einer weiterern Vereinfachung der Gleichung, erfordert aber auch das Ersetzen der Masse
-        durch die effektive Masse, um weiterhin eine korrekte Beschreibung zu gewährleisten.
-
-        \begin{equation}
-            \theta_{\text{frei}}(\lambda) = \frac{\text{e}^3 \lambda^2}{8\pi^2\varepsilon_0 \text{c}^3} \cdot \frac{1}{(\text{m*})^2} \cdot \frac{\text{NB}}{n}
-            \label{eqn:faraday}
-        \end{equation}
-
-        Dies erlaubt das Bestimmen der effektiven Masse über die Messung des Drehwinkels der Faraday-Rotation.
-
-
-
-        
+            Mögliche Defekte z.B. Zwischenatome werden durch Einsetzen verschieden langer Rohrresonatoren und die damit verbundene variierende Kopplungsstärke wird wiederum durch verschieden breite Blendenöffnungen verwirklicht.
