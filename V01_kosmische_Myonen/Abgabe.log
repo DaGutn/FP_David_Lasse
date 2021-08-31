@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.23)  30 JUL 2021 09:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.9.23)  1 SEP 2021 00:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -104,6 +104,10 @@ Package tocbasic Info: omitting babel extension for `lot'
 \c@table=\count88
 Class scrartcl Info: Redefining `\numberline' on input line 5957.
 \bibindent=\dimen102
+) (/home/lasse/.local/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
 ) (/home/lasse/.local/texlive/2019/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
  (/home/lasse/.local/texlive/2019/texmf-dist/tex/latex/oberdiek/kvoptions.sty
@@ -336,11 +340,11 @@ l.45 \msg_fatal:nn {fontspec} {cannot-use-pdftex}
 
  
 Here is how much of TeX's memory you used:
- 13013 strings out of 492609
- 258619 string characters out of 6125241
- 394716 words of memory out of 5000000
- 16939 multiletter control sequences out of 15000+600000
+ 13034 strings out of 492609
+ 259053 string characters out of 6125241
+ 395206 words of memory out of 5000000
+ 16957 multiletter control sequences out of 15000+600000
  532638 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,1n,77p,9204b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,1n,77p,9199b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
 /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/fontspec/fontspec.sty:45:  ==> Fatal error occurred, no output PDF file produced!

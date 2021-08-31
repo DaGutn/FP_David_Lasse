@@ -24,6 +24,8 @@ INPUT /home/lasse/.local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/koma-script/typearea.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/koma-script/typearea.sty
+INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
+INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/base/inputenc.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 INPUT /home/lasse/.local/texlive/2019/texmf-dist/tex/latex/oberdiek/kvoptions.sty
