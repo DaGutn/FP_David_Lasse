@@ -12,7 +12,8 @@ from scipy.optimize import curve_fit
 
 #Zu fittende Funktion
 def gauss(x, a, x_0, sig):
-    return a * np.exp(-(x-x_0)**2 / (2*sig**2))
+    n = 2
+    return a * np.exp(-((x-x_0) / sig)**(2*n))
 
 #Daten einlesen
 df_1 = pd.read_csv('data/Verzoergerung_data.csv', delimiter='\t')
@@ -23,17 +24,27 @@ y = unp.uarray(df_1['Counts'], np.sqrt(df_1['Counts']))
 params_1, cov_1 = curve_fit(gauss, x, noms(y), sigma=stds(y))
 errors_1 = np.sqrt(np.diag(cov_1))
 
-#Plotten
+#Messwerte, Fit und Halbwertsbreite Plotten
 fig, ax = plt.subplots()
 
 x_lin = np.linspace(x[0], x[-1], 100)
-ax.plot(x, noms(y), 'b.', label='Messwerte')
-ax.errorbar(x, noms(y), yerr=stds(y), fmt='none', ecolor='gray', alpha=0.9, capsize=2.5, elinewidth=1.5)
+ax.plot(x, noms(y), 'x', label='Messwerte')
+#ax.errorbar(x, noms(y), yerr=stds(y), fmt='none', ecolor='gray', alpha=0.9, capsize=2.5, elinewidth=1.5)
 ax.plot(x_lin, gauss(x_lin, *params_1), 'orange', label='Fit')
+halbwert = np.max(gauss(x_lin, *params_1)) / 2
+ax.hlines(halbwert, -8.2, 8.2, linestyles='dashed', colors='gray', alpha=0.7, label='Halbwertsbreite')
+ax.vlines(-8.2, 0, 210, linestyles='dashed', colors='gray', alpha=0.7)
+ax.vlines(8.2, 0, 210, linestyles='dashed', colors='gray', alpha=0.7)
 ax.set_xlabel(r'$\Delta t$')
 ax.set_ylabel(r'Counts pro 10s')
-ax.legend(markerscale=2)
 
+handles, labels = ax.get_legend_handles_labels()
+handles, labels = zip(*sorted(zip(handles, labels), key=lambda t: t[1], reverse=True))
+#handles, labels = handles[::-1], labels[::-1]
+
+ax.legend(handles, labels, markerscale=1.2)
+
+#plt.show()
 plt.savefig('plots/Verzoergerung.pdf')
 plt.clf()
 
@@ -88,8 +99,8 @@ print('\n')
 ### Counts gegen Lebenszeiten plotten, fitten und auswerten
 
 #Zu fittende Funktion
-def efkt(x, a, lam, b):
-    return a * np.exp(-lam*x) + b
+def efkt(x, a, lam):
+    return a * np.exp(-lam*x)
 
 #Daten einlesen und x-Werte umformen
 df_3 = pd.read_csv('data/Lebenszeit_data.csv', names=['counts'])
@@ -101,7 +112,7 @@ counts = df_3['counts'].to_numpy(dtype=np.float128)
 #Fitten
 x_min = 3
 x_max = 228
-counts_rel = counts[x_min:x_max]
+counts_rel = counts[x_min:x_max] - 5.81
 t_rel = t[x_min:x_max]
 
 params_3, cov_3 = curve_fit(efkt, noms(t_rel), counts_rel)
@@ -128,7 +139,7 @@ plt.clf()
 
 #Parameter
 parameter_3 = unp.uarray(params_3, errors_3)
-for name, param in zip(('a','lam', 'b'), parameter_3):
+for name, param in zip(('a','lam'), parameter_3):
     print(r'{0}:  {1:.8f}'.format(name, param))
 
 # Lebensdauer berechnen

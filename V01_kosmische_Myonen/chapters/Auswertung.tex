@@ -1,15 +1,16 @@
 %\newpage
 \section{Auswertung}
     \subsection{Bestimmung der Untergrundrate}
-        In einem Zeitraum von $T = 327256$s wurden $N_{\text{Start}} = 6543685$ Startsignale und $N_{\text{Stopp}} = 25257$
+    \label{sec:untergrund}
+        In einem Zeitraum von $T = \SI{327256}{s}$ wurden $N_{\text{Start}} = 6543685$ Startsignale und $N_{\text{Stopp}} = 25257$
         Stoppsignale aufgenommen. Damit ergibt sich eine durchschnittliche Rate von:
         \begin{equation*}
             r = \frac{N_{\text{Start}}}{T} = \frac{6543685}{327256} \approx 20,00 \, \frac{\text{Myonen}}{\text{s}}
         \end{equation*}
-        Die Wahrscheinlichkeit, dass genau ein weiteres Myon ($k = 1$) in der Suchzeit $T_\text{S} = 10\mu$s nach einem vorherigen Myon ein Signal erzeugt ist poissonverteilt und damit:
+        Die Wahrscheinlichkeit, dass genau ein weiteres Myon ($k = 1$) in der Suchzeit $T_\text{S} = \SI{10}{\mu s}$ nach dem Eintreffen eines vorherigen Myons ein Signal erzeugt, ist poissonverteilt und damit:
         \begin{align*}
             p(k) &= \frac{(T_{\text{S}} \cdot r)^k}{k!} \exp\left(-T_{\text{S}} \cdot r\right) \\[10pt]
-            p(1) &= T_{\text{S}} r \cdot \exp\left(-T_{\text{S}}  r\right) \approx 0,02000 \%
+            p(1) &= T_{\text{S}} r \cdot \exp\left(-T_{\text{S}}  r\right) \approx \SI{0,02000}{\%}
         \end{align*}
         Der Untergrund setzt sich aus diesen während einer angefangenen Suchzeit ankommenden Myonen zusammen. Also ist die Anzahl dieser fehlerhaften Signale gegeben durch:
         \begin{equation*}
@@ -21,7 +22,7 @@
         \end{equation*}
 
     \subsection{Justierung der Verzörgerungsleitungen}
-        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. Da die beiden Signale nie genau im selben Zeitpunkt ankommen können, hat die Koinzidenz ein kleines Toleranzintervall (die Auflösungszeit), weshalb ein Plateau zu sehen sein müsste, wenn die Counts gegen die Zeitdifferenz auftragen werden.
+        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. Da die beiden Signale jedoch selten genau im selben Zeitpunkt ankommen, hat die Koinzidenz ein gewisses endliches Toleranzintervall (die Auflösungszeit). Deshalb ist ein Plateau in \autoref{fig:Verzoergerung} zu sehen, wenn die Counts gegen die Zeitdifferenz auftragen werden.
         
         \begin{figure}[h]
             \centering
@@ -32,33 +33,35 @@
 
         \FloatBarrier
 
-        Es wird eine Gauß-Glocke an die Messwerte gefittet
+        Es wird die Plateau-Funktion
         \begin{equation*}
-            f(x) = a \exp\left(-\frac{\left(x - x_0\right)^2}{2 \sigma^2}\right)
+            f(x) = a \exp\left(-\left(\frac{x - x_0}{\sigma}\right)^{2 n}\right)
         \end{equation*}
-        mit den folgenden Parametern:
+        mit dem Paramater $n = 2$ an die Messwerte gefittet.
+        Für ein höheres $n$ würde die Funktion ein stärker ausgeprägtes Plateau aufweisen, doch sie würde sich nicht mehr so gut an die gemessenen Werte fitten lassen. Das Plateau wäre zu weit von den oberen Werten entfernt.
+        Die sich durch die Ausgleichsrechnung ergebenden Parameter
         \begin{align*}
-            a &= 216,19 \pm 14,21 \\
-            x_0 &= (-0,11 \pm 0,29) \, \text{ns} \\
-            \sigma &= (-5,08 \pm 0,20) \, \text{ns}
+            a &= 170,63 \pm 8,53 \\
+            x_0 &= (-0,036 \pm 0,219) \, \text{ns} \\
+            \sigma &= (9,03 \pm 0,22) \, \text{ns}
         \end{align*}
 
-        Im Nachfolgenden wurde die Stelle der maximalen Counts als Nullpunkt gewählt und alle darauffolgenden Schritte wurden mit dieser Einstellung der Verzörgerungsleitung durchgeführt.
+        Im Nachfolgenden wurde die Stelle der maximalen Counts als Nullpunkt gewählt und alle darauffolgenden Schritte wurden mit den entsprechend eingestellten Verzörgerungsleitungen durchgeführt.
 
         \newpage
         \subsection{Kalibration des TAC-MCA}
-        Das TAC gibt zu einem gemessenen Zeitintervall proportionale Spannungsamplitude an den MCA weiter, welche dann ihrer Größe nach in Kanäle geordnet werden. Um den Proportionalitätsfaktor zwischen den Amplituden und den Zeitintervallen zu bestimmen werden verschiedene Pulsabstände an einem Doppelimpulsgenerator eingestellt und gegen die Kanäle im MCA aufgetragen. Dadurch wird bestimmt welchem Kanal welcher Zeitabstand zugeordnet ist, bzw. der Propotionalitätsfaktor wird bestimmt.
+        Das TAC gibt zu einem gemessenen Zeitintervall proportionale Spannungsamplitude an den MCA weiter, welche dann ihrer Größe nach in Kanäle geordnet werden. Um den Proportionalitätsfaktor zwischen den Amplituden und den Zeitintervallen zu bestimmen werden 11 Pulsabstände von $0.3\;\mu$s bis $9.9\;\mu$s an einem Doppelimpulsgenerator eingestellt und gegen die Kanäle im MCA aufgetragen. Dadurch kann bestimmt werden welchem Kanal welcher Zeitabstand zugeordnet ist, bzw. welcher Propotionalitätsfaktor zwischen den Zeitabständen und den Kanälen am MCA herrscht.
 
         \begin{figure}[h]
             \centering
             \includegraphics[width = 0.75\textwidth]{plots/Marker_Faktor.pdf}
-            \caption{Das eingestellte Zeitintervall zwischen den Pulsen am Doppelimpulsgenerator ist gegen die Kanäle des MCA aufgetragen.}
+            \caption{Das eingestellte Zeitintervall zwischen den Pulsen am Doppelimpulsgenerator ist gegen die Kanäle des MCA aufgetragen. Dabei wird eine Ausgleichsgerade an die Messwerte gelegt.}
             \label{fig:Marker_Faktor}
         \end{figure}
 
         \FloatBarrier
 
-        Durch die Messwerte wird ein linearer Fit gelegt
+        An die Messwerte wird eine lineare Ausgleichsgerade der folgenden Form gelegt
         \begin{equation*}
             f(x) = m \cdot x
         \end{equation*}
@@ -78,24 +81,23 @@
 
         \FloatBarrier
 
-        Über einen Zeitraum von ca. 90,9 Stunden wurden 23944 Myonen-Zerfälle aufgenommen. In \autoref{fig:Lebenszeit} ist wie zu erwarten ein exponentieller Verlauf der Lebenszeit zu erkennen. Zur Bestimmung der Zerfallskonstante $\lambda$ aus dem Zerfallsgesetz \eqref{eqn:Zerfallsgesetz} wird eine Exponentialfunktion an die Messwerte gefittet,
+        Über einen Zeitraum von ca. 90,9 Stunden wurden 25257 Myonen-Zerfälle aufgenommen. In \autoref{fig:Lebenszeit} ist wie zu erwarten ein exponentieller Verlauf der Lebenszeit zu erkennen. Zur Bestimmung der Zerfallskonstante $\lambda$ aus dem Zerfallsgesetz \eqref{eqn:Zerfallsgesetz} wird eine Exponentialfunktion an die Messwerte gefittet, von denen der Untergrund abgezogen wurde:
         \begin{equation*}
-            f(x) = A \cdot \exp\left(-\lambda t\right) + u
+            f(x) = A \cdot \exp\left(-\lambda t\right)
         \end{equation*}
-        wobei $u$ der Untergrund während Messung ist. Als Parameter ergeben sich:
+        Als Parameter ergeben sich:
         \begin{align*}
-            \lambda &= (0,4873 \pm 0,0067) \, \mu\text{s}^{-1} \\
-            u &= 7,09 \pm 1,39
+            \lambda &= (0,4827 \pm 0,0043) \, \mu\text{s}^{-1}
         \end{align*}
         Der zuvor berechnete Untergrund von $u_{\text{theo}} \approx 5,81$ ist in der Messunsicherheit enthalten.
 
         Mit $\lambda$ ergibt sich eine mittlere Myonenlebensdauer von
         \begin{equation*}
-            \tau_{\mu} = \frac{1}{\lambda} = (2,052 \pm 0,028) \, \mu\text{s}
+            \tau_{\mu} = \frac{1}{\lambda} = (2,072 \pm 0,0118) \, \mu\text{s}
         \end{equation*}
         mit einer relativen Messabweichung vom Theoriewert $\tau_{\text{theo}} \approx 2,197 \, \mu$s \cite{zyla_review_2020} von:
         \begin{equation*}
-            a_{\tau} = \frac{\tau_{\mu} - \tau_{\text{theo}}}{\tau_{\text{theo}}} \approx 6,6 \%
+            a_{\tau} = \frac{\tau_{\mu} - \tau_{\text{theo}}}{\tau_{\text{theo}}} \approx 5,7 \;\%    
         \end{equation*}
 
 
