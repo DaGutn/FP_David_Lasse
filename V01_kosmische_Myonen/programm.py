@@ -28,14 +28,14 @@ errors_1 = np.sqrt(np.diag(cov_1))
 fig, ax = plt.subplots()
 
 x_lin = np.linspace(x[0], x[-1], 100)
-ax.plot(x, noms(y), 'x', label='Messwerte')
-#ax.errorbar(x, noms(y), yerr=stds(y), fmt='none', ecolor='gray', alpha=0.9, capsize=2.5, elinewidth=1.5)
+ax.plot(x, noms(y), '.', label='Messwerte')
+ax.errorbar(x, noms(y), yerr=stds(y), fmt='none', ecolor='gray', alpha=0.9, capsize=2.5, elinewidth=1.5)
 ax.plot(x_lin, gauss(x_lin, *params_1), 'orange', label='Fit')
 halbwert = np.max(gauss(x_lin, *params_1)) / 2
 ax.hlines(halbwert, -8.2, 8.2, linestyles='dashed', colors='gray', alpha=0.7, label='Halbwertsbreite')
 ax.vlines(-8.2, 0, 210, linestyles='dashed', colors='gray', alpha=0.7)
 ax.vlines(8.2, 0, 210, linestyles='dashed', colors='gray', alpha=0.7)
-ax.set_xlabel(r'$\Delta t$')
+ax.set_xlabel(r'$\Delta t$ [ns]')
 ax.set_ylabel(r'Counts pro 10s')
 
 handles, labels = ax.get_legend_handles_labels()
@@ -107,12 +107,12 @@ df_3 = pd.read_csv('data/Lebenszeit_data.csv', names=['counts'])
 
 kanal = np.linspace(0, 511, 512)
 t = kanal * parameter_2
-counts = df_3['counts'].to_numpy(dtype=np.float128)
+counts = df_3['counts'].to_numpy(dtype=np.float128) - 5.81
 
 #Fitten
 x_min = 3
 x_max = 228
-counts_rel = counts[x_min:x_max] - 5.81
+counts_rel = counts[x_min:x_max]
 t_rel = t[x_min:x_max]
 
 params_3, cov_3 = curve_fit(efkt, noms(t_rel), counts_rel)

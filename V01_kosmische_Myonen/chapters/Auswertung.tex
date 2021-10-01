@@ -7,7 +7,7 @@
         \begin{equation*}
             r = \frac{N_{\text{Start}}}{T} = \frac{6543685}{327256} \approx 20,00 \, \frac{\text{Myonen}}{\text{s}}
         \end{equation*}
-        Die Wahrscheinlichkeit, dass genau ein weiteres Myon ($k = 1$) in der Suchzeit $T_\text{S} = \SI{10}{\mu s}$ nach dem Eintreffen eines vorherigen Myons ein Signal erzeugt, ist poissonverteilt und damit:
+        Die Wahrscheinlichkeit, dass genau ein weiteres Myon ($k = 1$) in der Suchzeit $T_\text{S} = \SI{10}{\micro s}$ nach dem Eintreffen eines vorherigen Myons ein Signal erzeugt, ist poissonverteilt und damit:
         \begin{align*}
             p(k) &= \frac{(T_{\text{S}} \cdot r)^k}{k!} \exp\left(-T_{\text{S}} \cdot r\right) \\[10pt]
             p(1) &= T_{\text{S}} r \cdot \exp\left(-T_{\text{S}}  r\right) \approx \SI{0,02000}{\%}
@@ -22,16 +22,20 @@
         \end{equation*}
 
     \subsection{Justierung der Verzörgerungsleitungen}
-        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. Da die beiden Signale jedoch selten genau im selben Zeitpunkt ankommen, hat die Koinzidenz ein gewisses endliches Toleranzintervall (die Auflösungszeit). Deshalb ist ein Plateau in \autoref{fig:Verzoergerung} zu sehen, wenn die Counts gegen die Zeitdifferenz auftragen werden.
+        Die Signale aus den Photomultipliern sollten möglichst zeitgleich an der Koinzidenz ankommen. Das heißt, dass die Anzahl der Signale, die die Koinzidenz durchlässt steigt je kleiner der zeitliche Abstand zwischen den beiden ankommenden Signalen ist. 
+        Da die Pulsdauer des Ausgangssignales am Diskriminator auf \SI{10}{\nano \second} normiert ist, kann innerhalb dieser Pulsdauer das Signal des anderen Diskriminators an der Koinzidenz ankommen und kann als gleichzeitig betrachtet werden.
+        Deshalb ist ein Plateau in \autoref{fig:Verzoergerung} zu sehen, wenn die Counts gegen die Zeitdifferenz auftragen werden.
         
         \begin{figure}[h]
             \centering
             \includegraphics[width = 0.75\textwidth]{plots/Verzoergerung.pdf}
-            \caption{Die an der Koinzidenz gemessenen Counts/10s sind gegen die Zeitdifferenz zwischen den beiden Verzörgerungsleitungen aufgetragen.}
+            \caption{Die an der Koinzidenz gemessenen Counts/10s sind gegen die Zeitdifferenz zwischen den beiden Verzörgerungsleitungen aufgetragen. Die zugehörigen Fehler sind als Fehlerbalken dargestellt. Die Halbwertsbreite wird durch die gestrichelten Linien dargestellt.}
             \label{fig:Verzoergerung}
         \end{figure}
 
         \FloatBarrier
+
+        Da es sich bei Zählraten um poissonverteilte Größen handelt, kann für die Fehler der Counts $N = \sqrt{N}$ geschrieben werden. Diese sind in Form von Fehlerbalken in \autoref{fig:Verzoergerung} eingetragen.
 
         Es wird die Plateau-Funktion
         \begin{equation*}
@@ -46,10 +50,11 @@
             \sigma &= (9,03 \pm 0,22) \, \text{ns}
         \end{align*}
 
+        Aus der angepassten Funktion lässt sich die Halbwertsbreite zu $T_{\text{FWHM}} = \SI{16,4}{\nano \second}$ bestimmen.
+
         Im Nachfolgenden wurde die Stelle der maximalen Counts als Nullpunkt gewählt und alle darauffolgenden Schritte wurden mit den entsprechend eingestellten Verzörgerungsleitungen durchgeführt.
 
-        \newpage
-        \subsection{Kalibration des TAC-MCA}
+    \subsection{Kalibration des TAC-MCA}
         Das TAC gibt zu einem gemessenen Zeitintervall proportionale Spannungsamplitude an den MCA weiter, welche dann ihrer Größe nach in Kanäle geordnet werden. Um den Proportionalitätsfaktor zwischen den Amplituden und den Zeitintervallen zu bestimmen werden 11 Pulsabstände von $0.3\;\mu$s bis $9.9\;\mu$s an einem Doppelimpulsgenerator eingestellt und gegen die Kanäle im MCA aufgetragen. Dadurch kann bestimmt werden welchem Kanal welcher Zeitabstand zugeordnet ist, bzw. welcher Propotionalitätsfaktor zwischen den Zeitabständen und den Kanälen am MCA herrscht.
 
         \begin{figure}[h]
@@ -81,9 +86,9 @@
 
         \FloatBarrier
 
-        Über einen Zeitraum von ca. 90,9 Stunden wurden 25257 Myonen-Zerfälle aufgenommen. In \autoref{fig:Lebenszeit} ist wie zu erwarten ein exponentieller Verlauf der Lebenszeit zu erkennen. Zur Bestimmung der Zerfallskonstante $\lambda$ aus dem Zerfallsgesetz \eqref{eqn:Zerfallsgesetz} wird eine Exponentialfunktion an die Messwerte gefittet, von denen der Untergrund abgezogen wurde:
+        Über einen Zeitraum von ca. 90,9 Stunden wurden 25257 Myonen-Zerfälle aufgenommen. In \autoref{fig:Lebenszeit} ist wie zu erwarten ein exponentieller Verlauf der Lebenszeit zu erkennen. Zur Bestimmung der Zerfallskonstante $\lambda$ aus dem Zerfallsgesetz \eqref{eqn:Zerfallsgesetz} wird eine Exponentialfunktion an die Messwerte gefittet, von denen der in \autoref{sec:untergrund} theoretisch berechnete Untergrund abgezogen wurde:
         \begin{equation*}
-            f(x) = A \cdot \exp\left(-\lambda t\right)
+            f(x) = A \cdot \exp\left(-\lambda x\right)
         \end{equation*}
         Als Parameter ergeben sich:
         \begin{align*}
